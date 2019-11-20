@@ -1,0 +1,29 @@
+{
+  "name": "justmeat",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/davideturzo/JustMeat.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/davideturzo/JustMeat/issues"
+  },
+  "homepage": "https://github.com/davideturzo/JustMeat#readme",
+  "devDependencies": {
+    "@types/express": "^4.17.2",
+    "@types/node": "^12.12.11",
+    "nodemon": "^1.19.4",
+    "ts-node": "^8.5.2",
+    "typescript": "^3.7.2"
+  }
+}
