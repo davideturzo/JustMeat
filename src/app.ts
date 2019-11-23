@@ -25,28 +25,22 @@ app.get('/users', (req: Request, res: Response) => {
     return res.json(user.usersList());
 });
 
-//to review
+//TODO put call must be fixed, it produce a strange type of error
 app.put('/users/:username', (req: Request, res: Response) => {
     if(req.params.username){
         if(req.body.password){
-            user.updateUserFields(req.params.username, req.body.password);
+            return res.json(user.updateUserFields(req.params.username, req.body.password));
+        } else if(req.body.name){
+            return res.json(user.updateUserFields(req.params.username, req.body.name));
+        } else if(req.body.surname){
+            return res.json(user.updateUserFields(req.params.username, req.body.surname));
+        } else if(req.body.address){
+            return res.json(user.updateUserFields(req.params.username, req.body.address));
+        } else if(req.body.phone){
+            return res.json(user.updateUserFields(req.params.username, req.body.phone));
         } else {
-            return res.status(400).send("You should change at least one field");
+            return res.status(400).send("You should change one field");
         }
-        if(req.body.name){
-            user.updateUserFields(req.params.username, req.body.password, req.body.name);
-        }
-        if(req.body.surname){
-            user.updateUserFields(req.params.username, req.body.password, req.body.name, req.body.surname);
-        }
-        if(req.body.address){
-            user.updateUserFields(req.params.username, req.body.password, req.body.name, req.body.surname, req.body.address);
-        }
-        if(req.body.phone){
-            user.updateUserFields(req.params.username, req.body.password, req.body.name, req.body.surname, req.body.address, req.body.phone);
-        }
-    } else {
-        return res.status(400).send("Username must be present");
     }
 });
 

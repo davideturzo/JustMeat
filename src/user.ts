@@ -1,7 +1,7 @@
 import uuidv1 from 'uuid/v1';
-import fs from 'fs';
 import ash from 'password-hash';
-export interface User{
+import fs from 'fs';
+export interface NewUser {
     username: string,
     password: string,
     name: string,
@@ -10,12 +10,24 @@ export interface User{
     phone: string,
     email: string
 }
-// let users = JSON.parse(fs.readFileSync('../json_files/users.json'));
-const users: any = [];
+export interface User extends NewUser {
+    uuid: string
+}
+const jsonStringUser  = (fs.readFileSync( __dirname + '/json_file/users.json','utf8'));
+const users: Array<User> = JSON.parse(jsonStringUser);
 
-export function newUser(user: User): boolean {
+
+export function newUser(user: NewUser): boolean {
+    /*if(users.some(u => u.username === user.username)) {
+        return false;
+    }*/
+    for (let element of users) {
+        if (element.username === user.username) {
+            return false;
+        }
+    }
     users.push({
-        id: uuidv1(),
+        uuid: uuidv1(),
         username: user.username,
         password: ash.generate(user.password),
         name: user.name,
@@ -24,47 +36,56 @@ export function newUser(user: User): boolean {
         phone: user.phone,
         email: user.email
     });
+    let finalNewUser = JSON.stringify(users, null, 2);
+    fs.writeFileSync(__dirname+'/json_file/users.json', finalNewUser );
     return true;
 }
 
-export function usersList(): Array<User> {
+export function usersList() {
     return users;
 }
-export function userById(username: string): Boolean {
-    for(let i = 0; i < users.length; i++ ){
-        if(username == users[i].username){
-            return users[i];
+export function userById(username: string): any {
+    for(let element of users){
+        if(username == element.username){
+            return element;
         }
     }
     return true;
 }
 
-export function updateUserFields(userToSearch: string, password: string, name?: string, surname?: string, address?: string, phone?: string): Boolean {
-    for(let i = 0; i < users.lenght; i ++){
-        if(userToSearch == users[i].username){
-            users[i].password = password;
-            if(name){
-                users[i].name = name;
-            }
-            if(surname){
-                users[i].surname = surname;
-            }
-            if(address){
-                users[i].address = address;
-            }
-            if(phone){
-                users[i].phone = phone;
+export function updateUserFields(userToSearch: string, password?: string, name?: string, surname?: string, address?: string, phone?: string): any {
+    for(let user of users){
+        if(userToSearch == user.username){
+            if(password){
+                user.password = password;
+            } else if(name){
+                user.name = name;
+            } else if(surname){
+                user.surname = surname;
+            } else if(address){
+                user.address = address;
+            } else if(phone){
+                user.phone = phone;
             }
         }
+        let finalNewUser = JSON.stringify(user, null, 2);
+        fs.writeFileSync(__dirname+'/json_file/users.json', finalNewUser );
+        return user;
     }
-    return true;
+    return false;
 }
 
-export function deleteUser(id: string): Boolean {
+export function deleteUser(uuid: string): Boolean {
     for(let i = 0; i < users.length; i++){
-        users.splice(i, 1);
+        if(users[i].uuid === uuid){
+            users.splice(i, 1);
+            let finalNewUser = JSON.stringify(users, null, 2);
+            fs.writeFileSync(__dirname+'/json_file/users.json', finalNewUser );
+            return true;
+        }
     }
-    return true;
+    return false;
 }
+
 
 

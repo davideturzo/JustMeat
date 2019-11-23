@@ -1,1 +1,22 @@
-[]
+[
+  {
+    "uuid": "4e2fd5f0-0e03-11ea-93a5-213c75413eaa",
+    "username": "domenico.sf",
+    "password": "sha1$ea41c545$1$47ad1a49872687f1709bfeac4d9b67f07066128b",
+    "name": "Domenico",
+    "surname": "Signore Fiore",
+    "address": "Via Veronica 33",
+    "phone": "3286239190",
+    "email": "domenico.signorefiore@stevejobs.academy"
+  },
+  {
+    "uuid": "5be95310-0e03-11ea-a2e3-f56b36458228",
+    "username": "renato.russo",
+    "password": "sha1$2917a136$1$f62bcee9e82d9b098af8a9b783fb0423c975da92",
+    "name": "Renato",
+    "surname": "Russo",
+    "address": "Via Veronica 3",
+    "phone": "3246239490",
+    "email": "renato.russo@gmail.com"
+  }
+]

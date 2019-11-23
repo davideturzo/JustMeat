@@ -1,7 +1,7 @@
-import uuidv1 from 'uuid/v1';
+/*import uuidv1 from 'uuid/v1';
 import fs from 'fs';
 import ash from 'password-hash';
-import data from './json_file/orders.json';
+import data from './json_files/orders.json';
 export interface Order{
     ID: string,
     userID: string,
@@ -100,4 +100,4 @@ export function getOrderByPlate(plate: string): Array<Order> | null {
         }
     }
     return orderByPlate;
-};
+};*/
