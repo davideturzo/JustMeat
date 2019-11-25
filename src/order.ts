@@ -7,9 +7,9 @@ export interface OrderList{
     price : number
 }
 export interface Order{
-    ID: string,
-    userID: string,
-    restaurantID: string,
+    id: string,
+    userId: string,
+    restaurantId: string,
     date: string,
     shippingAddress : string,
     orderItems: Array<OrderList>,
@@ -34,23 +34,26 @@ export function newOrder(order: Order): Object {
     var orderPlate =Array<OrderList>();
     var completeOrder =Object();
     for(let idUser in userList){
-        if(userList[idUser].id === order.userID){
+        if(userList[idUser].uuid === order.userId){
             for(let idRestaurant in restaurantList ){
-                if(restaurantList[idRestaurant].id === order.restaurantID){
+                if(restaurantList[idRestaurant].id === order.restaurantId){
                     for(let plates in order.orderItems){
                         for(let item of restaurantList[idRestaurant].plate){
                             if(item.name === order.orderItems[plates].namePlate){
-                                orderPlate.push({quantity : order.orderItems[plates].quantity,
-                                namePlate : order.orderItems[plates].namePlate,
-                                price : order.orderItems[plates].price });
+                                orderPlate.push({
+                                    quantity : order.orderItems[plates].quantity,
+                                    namePlate : order.orderItems[plates].namePlate,
+                                    price : item.price
+                                });
+                                console.log(restaurantList[idRestaurant].plate[item.price]);
                                 totalPrice+=(order.orderItems[plates].price * order.orderItems[plates].quantity);
                             }
                         }
                     }
                     completeOrder={
-                        ID : uuidv1(),
-                        userID : order.userID,
-                        restaurantID : order.restaurantID,
+                        id : uuidv1(),
+                        userId : order.userId,
+                        restaurantId : order.restaurantId,
                         date : dateOrder,
                         shippingAddress : order.shippingAddress,
                         orderItems : orderPlate,

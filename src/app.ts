@@ -1,6 +1,7 @@
 import express, { Application, Request, Response } from 'express';
 import bodyParser from 'body-parser';
 import * as user from './user';
+import * as rest from './restaurant'
 import * as order from './order';
 const app: Application = express();
 app.use(bodyParser.json());
@@ -29,19 +30,9 @@ app.get('/users', (req: Request, res: Response) => {
 //TODO put call must be fixed, it produce a strange type of error
 app.put('/users/:username', (req: Request, res: Response) => {
     if(req.params.username){
-        if(req.body.password){
-            return res.json(user.updateUserFields(req.params.username, req.body.password));
-        } else if(req.body.name){
-            return res.json(user.updateUserFields(req.params.username, req.body.name));
-        } else if(req.body.surname){
-            return res.json(user.updateUserFields(req.params.username, req.body.surname));
-        } else if(req.body.address){
-            return res.json(user.updateUserFields(req.params.username, req.body.address));
-        } else if(req.body.phone){
-            return res.json(user.updateUserFields(req.params.username, req.body.phone));
-        } else {
-            return res.status(400).send("You should change one field");
-        }
+        return res.json(user.updateUserFields(req.params.username, req.body.password, req.body.name, req.body.surname, req.body.address, req.body.phone, req.body.email));
+    } else {
+        return res.status(400).send("You should change one field");
     }
 });
 
@@ -88,7 +79,37 @@ app.get('/orders/user/:id', (req: Request, res: Response) => {
 app.get('/orders/restaurant/:id', (req: Request, res: Response) => {
     return res.json(order.getOrdersByRestaurantId(req.params.id));
 });
-
+app.post('/restaurant/create', (req: Request, res: Response) => {
+    if(!isNaN(req.body.name && req.body.address && req.body.email)){
+        return res.status(400).send("name, address, email must be valid");
+     }
+     return res.json(rest.newRestaurant(req.body));
+});
+app.get('/restaurant/list', (req: Request, res: Response) => {
+    return res.json(rest.getRestaurantList());
+}); 
+app.put('/restaurant/update/:id', (req: Request, res: Response) => {
+        if(req.params.id){
+            if(req.body.name){
+                rest.updateRestaurantFields(req.params.id, req.body.name, req.body.address, req.body.email, req.body.plate);
+                return res.json(rest.getRestaurantList());
+            }
+        }
+});
+app.get('/restaurant/search/:id', (req: Request, res: Response) => {
+    if(req.params.id){
+        return res.json(rest.restaurantById(req.params.id));
+    }else{
+        return res.status(404).send('restaurant not found');
+    }
+});
+app.delete('/restaurant/delete/:id', (req: Request, res: Response) => {
+    if(req.params.id){
+        return res.json(rest.deleteRestaurant(req.params.id));
+    }else{
+        return res.status(404).send('Restaurant not found');
+    }
+})
 app.listen(3001, "Localhost", (err) => {
     if(err) {
         return console.log(err);

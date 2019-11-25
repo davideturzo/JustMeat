@@ -50,7 +50,7 @@ export function userById(username: string): any {
     return true;
 }
 
-export function updateUserFields(userToSearch: string, password?: string, name?: string, surname?: string, address?: string, phone?: string): any {
+export function updateUserFields(userToSearch: string, password?: string, name?: string, surname?: string, address?: string, phone?: string, email?: string): any {
     for(let user of users){
         if(userToSearch == user.username){
             if(password){
