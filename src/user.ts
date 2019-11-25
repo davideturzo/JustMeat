@@ -38,10 +38,10 @@ export function newUser(user: NewUser): boolean {
     return true;
 }
 
-export function usersList() {
+export function usersList(): Array<User> {
     return users;
 }
-export function userById(username: string): any {
+export function userById(username: string): User|boolean {
     for(let element of users){
         if(username == element.username){
             return element;
@@ -54,20 +54,27 @@ export function updateUserFields(userToSearch: string, password?: string, name?:
     for(let user of users){
         if(userToSearch == user.username){
             if(password){
-                user.password = password;
-            } else if(name){
+                user.password = ash.generate(password);
+            }
+            if(name){
                 user.name = name;
-            } else if(surname){
+            }
+            if(surname){
                 user.surname = surname;
-            } else if(address){
+            }
+            if(address){
                 user.address = address;
-            } else if(phone){
+            }
+            if(phone){
                 user.phone = phone;
             }
+            if(email){
+                user.email = email;
+            }
+            let finalNewUser = JSON.stringify(users, null, 2);
+            fs.writeFileSync(__dirname+'/json_file/users.json', finalNewUser );
+            return user;
         }
-        let finalNewUser = JSON.stringify(user, null, 2);
-        fs.writeFileSync(__dirname+'/json_file/users.json', finalNewUser );
-        return user;
     }
     return false;
 }

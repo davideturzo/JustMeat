@@ -1,21 +1,42 @@
-[{
-  "id": "4e2fd5f0-0e03-11ea-93a5-213c75413eaa",
-  "username": "domenico.sf",
-  "password": "sha1$ea41c545$1$47ad1a49872687f1709bfeac4d9b67f07066128b",
-  "name": "Domenico",
-  "surname": "Signore Fiore",
-  "address": "Via Veronica 33",
-  "phone": "3286239190",
-  "email": "domenico.signorefiore@stevejobs.academy"
-},
-{
-  "id": "5be95310-0e03-11ea-a2e3-f56b36458228",
-  "username": "renato.russo",
-  "password": "sha1$2917a136$1$f62bcee9e82d9b098af8a9b783fb0423c975da92",
-  "name": "Renato",
-  "surname": "Russo",
-  "address": "Via Veronica 3",
-  "phone": "3246239490",
-  "email": "renato.russo@gmail.com"
-}
+[
+  {
+    "id": "211d0610-0f97-11ea-b961-2bf39a35d6e1",
+    "username": "renato.russo",
+    "password": "sha1$c34353fb$1$925796beea2e1151a8094c2db300035d273116f8",
+    "name": "Filippo",
+    "surname": "Mangioglio",
+    "address": "Via Veronica 3",
+    "phone": "3246239490",
+    "email": "renato.russo@gmail.com"
+  },
+  {
+    "id": "835ff110-0f98-11ea-8890-394c0b160928",
+    "username": "giovanni.russo",
+    "password": "sha1$0fd821e6$1$921e6d304ef499ef2f2dc4cf57ba79678dcc4167",
+    "name": "Giovanni",
+    "surname": "Russo",
+    "address": "Via Nocilla 3",
+    "phone": "3236249490",
+    "email": "giovanni.russo@gmail.com"
+  },
+  {
+    "id": "940124d0-0f98-11ea-92be-7fb936b7a9ae",
+    "username": "domenico.sf",
+    "password": "sha1$a07cd95d$1$4e3e07115f8feea4fe6c013b3d3b693ee50b8bc3",
+    "name": "Domenico",
+    "surname": "Signore Fiore",
+    "address": "Via Veronica 33",
+    "phone": "3286239190",
+    "email": "domenico.signorefiore@stevejobs.academy"
+  },
+  {
+    "id": "9e9859b0-0fa0-11ea-81ac-81fb7fc2bac8",
+    "username": "salvo.avon",
+    "password": "sha1$04f016cb$1$26ab6d6c8e7813743cc3bfb533996cc2ab7eedb0",
+    "name": "Salvo",
+    "surname": "D'Agata",
+    "address": "Via Sciarelle 33",
+    "phone": "3256234180",
+    "email": "salvo.avon@gmail.com"
+  }
 ]
