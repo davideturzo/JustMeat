@@ -38,10 +38,10 @@ export function newUser(user: NewUser): boolean {
     return true;
 }
 
-export function usersList() {
+export function usersList(): Array<User> {
     return users;
 }
-export function userById(username: string): any {
+export function userById(username: string): User|boolean {
     for(let element of users){
         if(username == element.username){
             return element;

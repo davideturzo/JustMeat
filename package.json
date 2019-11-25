@@ -9,7 +9,8 @@
   "scripts": {
     "dev": "nodemon src/app.ts",
     "start": "node lib/app.js",
-    "build": "tsc -p ."
+    "build": "tsc -p .",
+    "test": "mocha 'lib/test/test.js'"
   },
   "repository": {
     "type": "git",
@@ -22,6 +23,7 @@
   },
   "homepage": "https://github.com/davideturzo/JustMeat#readme",
   "devDependencies": {
+    "@types/chai": "^4.2.5",
     "@types/express": "^4.17.2",
     "@types/lowdb": "^1.0.9",
     "@types/mocha": "^5.2.7",
