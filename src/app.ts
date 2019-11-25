@@ -1,6 +1,7 @@
 import express, { Application, Request, Response } from 'express';
 import bodyParser from 'body-parser';
 import * as user from './user';
+import * as rest from './restaurant'
 import * as order from './order';
 const app: Application = express();
 app.use(bodyParser.json());
@@ -88,7 +89,37 @@ app.get('/orders/user/:id', (req: Request, res: Response) => {
 app.get('/orders/restaurant/:id', (req: Request, res: Response) => {
     return res.json(order.getOrdersByRestaurantId(req.params.id));
 });
-
+app.post('/restaurant/create', (req: Request, res: Response) => {
+    if(!isNaN(req.body.name && req.body.address && req.body.email)){
+        return res.status(400).send("name, address, email must be valid");
+     }
+     return res.json(rest.newRestaurant(req.body));
+});
+app.get('/restaurant/list', (req: Request, res: Response) => {
+    return res.json(rest.getRestaurantList());
+}); 
+app.put('/restaurant/update/:id', (req: Request, res: Response) => {
+        if(req.params.id){
+            if(req.body.name){
+                rest.updateRestaurantFields(req.params.id, req.body.name, req.body.address, req.body.email, req.body.plate);
+                return res.json(rest.getRestaurantList());
+            }
+        }
+});
+app.get('/restaurant/search/:id', (req: Request, res: Response) => {
+    if(req.params.id){
+        return res.json(rest.restaurantById(req.params.id));
+    }else{
+        return res.status(404).send('restaurant not found');
+    }
+});
+app.delete('/restaurant/delete/:id', (req: Request, res: Response) => {
+    if(req.params.id){
+        return res.json(rest.deleteRestaurant(req.params.id));
+    }else{
+        return res.status(404).send('Restaurant not found');
+    }
+})
 app.listen(3001, "Localhost", (err) => {
     if(err) {
         return console.log(err);
