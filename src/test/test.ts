@@ -1,5 +1,4 @@
 import * as supertest from 'supertest';
-import chai from 'chai';
 import * as mocha from 'mocha';
 import assert from 'assert';
 import users from '../routes/usersAPI';

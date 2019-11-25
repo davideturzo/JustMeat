@@ -81,5 +81,22 @@
     "totalAmount": null,
     "rating": null,
     "statusOrder": false
+  },
+  {
+    "id": "708466a9-12cd-4ae3-9e80-ee35580fc81b",
+    "userId": "4e2fd5f0-0e03-11ea-93a5-213c75413eaa",
+    "restaurantId": "5a1d5b20-0d41-4c26-8a21-0a5b6d9c3884",
+    "date": "25-11-2019 17:19:56",
+    "shippingAddress": "Some value",
+    "orderItems": [
+      {
+        "quantity": 1,
+        "namePlate": "pizza",
+        "price": 20
+      }
+    ],
+    "totalAmount": null,
+    "rating": null,
+    "statusOrder": false
   }
 ]
