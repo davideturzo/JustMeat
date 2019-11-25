@@ -1,5 +1,6 @@
 import {v4 as uuidv1} from 'uuid';
 import fs from 'fs';
+import util from 'util';
 
 export interface OrderList{
     quantity : number;
@@ -34,7 +35,7 @@ export function newOrder(order: Order): Object {
     var orderPlate =Array<OrderList>();
     var completeOrder =Object();
     for(let idUser in userList){
-        if(userList[idUser].uuid === order.userId){
+        if(userList[idUser].id === order.userId){
             for(let idRestaurant in restaurantList ){
                 if(restaurantList[idRestaurant].id === order.restaurantId){
                     for(let plates in order.orderItems){
@@ -45,7 +46,6 @@ export function newOrder(order: Order): Object {
                                     namePlate : order.orderItems[plates].namePlate,
                                     price : item.price
                                 });
-                                console.log(restaurantList[idRestaurant].plate[item.price]);
                                 totalPrice+=(order.orderItems[plates].price * order.orderItems[plates].quantity);
                             }
                         }
@@ -63,7 +63,11 @@ export function newOrder(order: Order): Object {
                     }
                     orderList.push(completeOrder)
                     const finalOrder = JSON.stringify(orderList,null,2);
-                    fs.writeFileSync(__dirname+'/json_file/orders.json', finalOrder );
+                    
+                    let writeFile = util.promisify(fs.writeFile);
+                    writeFile(__dirname+'/json_file/orders.json',finalOrder)
+                        .then(() => console.log("file created successfully with promisify!"))
+                        .catch(error => console.log(error));
                     return completeOrder;
                 } else{
                     return {response : "Restaurant not found"};
@@ -102,8 +106,12 @@ export function changeStatusOrder(ID:string): Object | boolean {
                 item.statusOrder = true;
                 orderList.splice(order,1,item);
                 const result = JSON.stringify(orderList,null,2);
-                fs.writeFileSync(__dirname+'/json_file/orders.json', result );
-                return {response : "Your order has been accepted"};
+                const writeFile = util.promisify(fs.writeFile);
+                    writeFile(__dirname+'/json_file/orders.json',result)
+                        .then(() =>{return {response : "Your order has been accepted"} })
+                        .catch(error => console.log(error));
+                //fs.writeFileSync(__dirname+'/json_file/orders.json', result );
+                //return {response : "Your order has been accepted"};
             } return {response : "You can't dismiss order"}
         }
     }
@@ -119,7 +127,10 @@ export function changeRatingOrder(ID:string,rating:BigInteger): Object | boolean
                     item.rating = rating;
                 orderList.splice(order,1,item);
                 const result = JSON.stringify(orderList,null,2);
-                fs.writeFileSync(__dirname+'/json_file/orders.json', result );
+                let writeFile = util.promisify(fs.writeFile);
+                    writeFile(__dirname+'/json_file/orders.json',result)
+                        .then(() => console.log("file created successfully with promisify!"))
+                        .catch(error => console.log(error));
                 return item;
                 }else return {response : "Rating should be a number between 0 and 5"};  
             } else return {response : "Your order has already received a vote"};
@@ -138,7 +149,10 @@ export function deleteOrder(id: string): Object | Boolean {
             if(item.statusOrder === false){
                 orderList.splice(order,1);
                 const result = JSON.stringify(orderList,null,2);
-                fs.writeFileSync(__dirname+'/json_file/orders.json', result );
+                let writeFile = util.promisify(fs.writeFile);
+                    writeFile(__dirname+'/json_file/orders.json',result)
+                        .then(() => console.log("file created successfully with promisify!"))
+                        .catch(error => console.log(error));
                 return item;
             }else return {response: "Can't delete accepted order"};
         }
