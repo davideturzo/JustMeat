@@ -1,6 +1,7 @@
 import express, { Application, Request, Response } from 'express';
 import bodyParser from 'body-parser';
 import * as user from './user';
+import * as order from './order';
 const app: Application = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
@@ -50,6 +51,42 @@ app.delete('/users/:id', (req: Request, res: Response) => {
     } else {
         return res.status(404).send("User not found");
     }
+});
+
+app.post('/orders/create', (req: Request, res: Response) => {
+    return res.json(order.newOrder(req.body));
+});
+app.put('/orders/:id', (req: Request, res: Response) => {
+    return res.json(order.changeStatusOrder(req.params.id));
+});
+app.delete('/orders/:id', (req: Request, res: Response) => {
+    return res.json(order.deleteOrder(req.params.id));
+});
+app.put('/orders/change/:id', (req: Request, res: Response) => {
+    return res.json(order.changeRatingOrder(req.params.id,req.query.rating));
+});
+app.get('/orders', (req: Request, res: Response) => {
+    if(req.query.userId && req.query.restaurantId){
+        return res.json(order.getOrdersByBothId(req.query.userId,req.query.restaurantId));
+    }else if(req.query.namePlate){
+        return res.json(order.getOrdersByPlate(req.query.namePlate));
+    }
+    return res.json(order.getOrdersList());
+});
+app.get('/orders/:id', (req: Request, res: Response) => {
+    return res.json(order.getOrdersById(req.params.id));
+});
+app.get('/orders/:userId/expensiveOrder', (req: Request, res: Response) => {
+    return res.json(order.getExpensiveOrder(req.params.userId));
+});
+app.get('/orders/:userId/cheaperOrder', (req: Request, res: Response) => {
+    return res.json(order.getCheaperOrder(req.params.userId));
+});
+app.get('/orders/user/:id', (req: Request, res: Response) => {
+    return res.json(order.getOrdersByUserId(req.params.id));
+});
+app.get('/orders/restaurant/:id', (req: Request, res: Response) => {
+    return res.json(order.getOrdersByRestaurantId(req.params.id));
 });
 
 app.listen(3001, "Localhost", (err) => {

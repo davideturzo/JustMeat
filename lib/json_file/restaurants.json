@@ -1,0 +1,9 @@
+[{
+    "id" : "prova",
+    "plate" : [
+        {
+            "name" : "pizza",
+            "prezzo" : 30
+        }
+    ]
+}]
