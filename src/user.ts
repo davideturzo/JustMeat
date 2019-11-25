@@ -18,9 +18,6 @@ const users: Array<User> = JSON.parse(jsonStringUser);
 
 
 export function newUser(user: NewUser): boolean {
-    /*if(users.some(u => u.username === user.username)) {
-        return false;
-    }*/
     for (let element of users) {
         if (element.username === user.username) {
             return false;
