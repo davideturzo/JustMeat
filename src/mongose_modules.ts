@@ -1,4 +1,4 @@
-import mongoose, { Schema } from 'mongoose' ;
+/* import mongoose, { Schema } from 'mongoose' ;
 async () => {
     await mongoose.connect('mongodb://localhost/justmeat'), {
         useNewUrlParser: true,
@@ -16,4 +16,4 @@ const userSchema = new Schema({
     email: String
 });
 var justMeat = mongoose.model('JustMeat', userSchema);
-module.exports = justMeat;
+module.exports = justMeat; */
