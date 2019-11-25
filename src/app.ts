@@ -2,11 +2,11 @@ import express, { Application, Request, Response } from 'express';
 import bodyParser from 'body-parser';
 import * as user from './user';
 import * as rest from './restaurant'
-import * as order from './order';
+let order = require('./routes/order');
 const app: Application = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
-
+app.use('/orders/',order)
 app.post('/user/create', (req: Request, res: Response) => {
     if(!isNaN(req.body.username && req.body.name && req.body.surname)){
        return res.status(400).send("username, name, surname must be valid");
@@ -116,3 +116,4 @@ app.listen(3001, "Localhost", (err) => {
     }
     console.log("Server is running..");
 });
+module.exports = app.listen(3001);

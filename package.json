@@ -9,7 +9,8 @@
   "scripts": {
     "dev": "nodemon src/app.ts",
     "start": "node lib/app.js",
-    "build": "tsc -p ."
+    "build": "tsc -p .",
+    "test": "mocha 'lib/test/test.js'"
   },
   "repository": {
     "type": "git",
