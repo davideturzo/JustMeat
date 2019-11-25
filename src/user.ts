@@ -11,7 +11,7 @@ export interface NewUser {
     email: string
 }
 export interface User extends NewUser {
-    uuid: string
+    id: string
 }
 const jsonStringUser  = (fs.readFileSync( __dirname + '/json_file/users.json','utf8'));
 const users: Array<User> = JSON.parse(jsonStringUser);
@@ -24,7 +24,7 @@ export function newUser(user: NewUser): boolean {
         }
     }
     users.push({
-        uuid: uuidv1(),
+        id: uuidv1(),
         username: user.username,
         password: ash.generate(user.password),
         name: user.name,
@@ -74,7 +74,7 @@ export function updateUserFields(userToSearch: string, password?: string, name?:
 
 export function deleteUser(uuid: string): Boolean {
     for(let i = 0; i < users.length; i++){
-        if(users[i].uuid === uuid){
+        if(users[i].id === uuid){
             users.splice(i, 1);
             let finalNewUser = JSON.stringify(users, null, 2);
             fs.writeFileSync(__dirname+'/json_file/users.json', finalNewUser );
