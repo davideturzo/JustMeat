@@ -48,5 +48,15 @@
     "address": "Via Nocilla 13",
     "phone": "3256234180",
     "email": "giuseppe.russo@gmail.com"
+  },
+  {
+    "id": "bd808f30-103d-11ea-983c-fdfc973b1bf5",
+    "username": "giuseppe.brischetto",
+    "password": "sha1$a01a86d2$1$c0a543583684429ed3dc0b8f210962ec0b8d6944",
+    "name": "Giuseppe",
+    "surname": "Brischetto",
+    "address": "Via Mascagni 3",
+    "phone": "3246239490",
+    "email": "giuseppe.brischetto@gmail.com"
   }
 ]
