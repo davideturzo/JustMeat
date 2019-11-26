@@ -47,7 +47,7 @@ export async function newRestaurant(rest: Restaurants): Promise<boolean|Object>{
     const plates = Array<Plates>();
     for(let i of restaurants){
         if(i.name === rest.name){
-            return false
+            return (false)
         }
     }
     restaurants.push({
