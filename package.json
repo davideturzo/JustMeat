@@ -32,6 +32,7 @@
     "@types/password-hash": "^1.2.20",
     "@types/supertest": "^2.0.8",
     "@types/uuid": "^3.4.6",
+    "jest": "^24.9.0",
     "mocha": "^6.2.2",
     "nodemon": "^1.19.4",
     "supertest": "^4.0.2",

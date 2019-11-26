@@ -1,6 +1,7 @@
 import uuidv1 from 'uuid/v1';
 import ash from 'password-hash';
 import fs from 'fs';
+import { promisify } from 'util';
 export interface NewUser {
     username: string,
     password: string,
@@ -13,9 +14,35 @@ export interface NewUser {
 export interface User extends NewUser {
     id: string
 }
-const jsonStringUser  = (fs.readFileSync( __dirname + '/json_file/users.json','utf8'));
-const users: Array<User> = JSON.parse(jsonStringUser);
+let users: Array<User>;
+/* myReadfile().then(res => {
+    const jsonStringUser = res;
+    users = JSON.parse(jsonStringUser);
+});*/
 
+const readFile = promisify(fs.readFile);
+async function myReadfile () {
+    try {
+      const file = await readFile(__dirname+'/json_file/users.json', 'utf-8' );
+      return file;
+    }
+    catch (err) {
+       throw err;
+    }
+}
+const writeFile = promisify(fs.writeFile);
+async function myWriteFile(finalNewUser: string) {
+    try {
+        const write = await writeFile(__dirname+'/json_file/users.json', finalNewUser );
+    }
+    catch (err) {
+       throw err;
+    }
+}
+
+(async () => {
+    users = JSON.parse(await myReadfile());
+})();
 
 export function newUser(user: NewUser): boolean {
     for (let element of users) {
@@ -34,7 +61,10 @@ export function newUser(user: NewUser): boolean {
         email: user.email
     });
     let finalNewUser = JSON.stringify(users, null, 2);
-    fs.writeFileSync(__dirname+'/json_file/users.json', finalNewUser );
+    (async () => {
+        await myWriteFile(finalNewUser);
+    }) ();
+
     return true;
 }
 
@@ -72,7 +102,9 @@ export function updateUserFields(userToSearch: string, password?: string, name?:
                 user.email = email;
             }
             let finalNewUser = JSON.stringify(users, null, 2);
-            fs.writeFileSync(__dirname+'/json_file/users.json', finalNewUser );
+            (async () => {
+                await myWriteFile(finalNewUser);
+            }) ();
             return user;
         }
     }
@@ -84,7 +116,9 @@ export function deleteUser(uuid: string): Boolean {
         if(users[i].id === uuid){
             users.splice(i, 1);
             let finalNewUser = JSON.stringify(users, null, 2);
-            fs.writeFileSync(__dirname+'/json_file/users.json', finalNewUser );
+            (async () => {
+                await myWriteFile(finalNewUser);
+            }) ();
             return true;
         }
     }

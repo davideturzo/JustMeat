@@ -38,5 +38,15 @@
     "address": "Via Sciarelle 33",
     "phone": "3256234180",
     "email": "salvo.avon@gmail.com"
+  },
+  {
+    "id": "80bff9f0-1029-11ea-8f1e-e56275feec9e",
+    "username": "giuseppe.russo",
+    "password": "sha1$56ae6af0$1$5d1b760fa9fc91a195841a79d7802c61fd2c0af1",
+    "name": "Gianni",
+    "surname": "Russo",
+    "address": "Via Nocilla 13",
+    "phone": "3256234180",
+    "email": "giuseppe.russo@gmail.com"
   }
 ]
