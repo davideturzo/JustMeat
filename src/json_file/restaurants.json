@@ -1,53 +1,5 @@
 [
   {
-    "id": "40cd0686-ce6e-42fa-98ff-371822b639ef",
-    "name": "Pizzeria da PORCO PORaaaC",
-    "address": "via Kennedy",
-    "email": "enrico@daSilente.Potter",
-    "plate": [
-      {
-        "name": "pastaCaSassa",
-        "price": "1500"
-      }
-    ],
-    "rating": null,
-    "typology": [
-      "Pizzeria, Ristorante"
-    ]
-  },
-  {
-    "id": "0c07ce93-0546-42c3-ab60-e2ab536b834a",
-    "name": "Pizza da FLEX",
-    "address": "viale FLEX",
-    "email": "flex@flex.flexaro",
-    "plate": [
-      {
-        "name": "PastaColFLEX",
-        "price": 10
-      }
-    ],
-    "rating": null,
-    "typology": [
-      "FLEXERIA, RISTOFLEXERA"
-    ]
-  },
-  {
-    "id": "116fe564-406d-4baa-b032-23391634008a",
-    "name": "Pizza da FLEXA",
-    "address": "viale FLEX",
-    "email": "flex@flex.flexaro",
-    "plate": [
-      {
-        "name": "PastaColFLEX",
-        "price": 10
-      }
-    ],
-    "rating": null,
-    "typology": [
-      "FLEXERIA, RISTOFLEXERA"
-    ]
-  },
-  {
     "id": "cb9c7a33-2b37-4be0-aac3-7a5ffc40b182",
     "name": "Pizza da FLEXERIA",
     "address": "viale FLEX",
