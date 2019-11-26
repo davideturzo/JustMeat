@@ -47,10 +47,10 @@ export async function newRestaurant(rest: Restaurants): Promise<boolean|Object>{
     const plates = Array<Plates>();
     for(let i of restaurants){
         if(i.name === rest.name){
-            return false
+            return false;
         }
     }
-    restaurants.push({
+    let actualRestaurant = {
         id: uuidv1(),
         name: rest.name,
         address: rest.address,
@@ -58,13 +58,14 @@ export async function newRestaurant(rest: Restaurants): Promise<boolean|Object>{
         plate : plates,
         rating : null,
         typology: rest.typology
-    });
+    }
+    restaurants.push(actualRestaurant);
     for(let i of rest.plate){
         plates.push(i);
     }
     const finalRestaurant = JSON.stringify(restaurants,null,2);
     await myWriteFile(finalRestaurant);
-    return restaurants;
+    return actualRestaurant;
 }
 
 export function getRestaurantList(): Array<Restaurants>{
@@ -77,7 +78,7 @@ export function restaurantById(id: string): Restaurants | undefined{
     });
 }
 
-export async function updateRestaurantFields(restaurantToSearch: string, name?: string, address?: string, email?: string, plate?: Array<Plates>): Promise<Boolean> {
+export async function updateRestaurantFields(restaurantToSearch: string, name?: string, address?: string, email?: string, plate?: Array<Plates>): Promise<Boolean | Restaurants> {
     for(let i = 0; i < restaurants.length; i ++){
         if(restaurantToSearch == restaurants[i].id){
             if(name){
@@ -94,7 +95,7 @@ export async function updateRestaurantFields(restaurantToSearch: string, name?: 
             }
             const finalRestaurant = JSON.stringify(restaurants,null,2);
             await myWriteFile(finalRestaurant);
-            return true;
+            return restaurants[i];
         }
     }
     return false;

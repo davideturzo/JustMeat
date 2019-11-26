@@ -44,13 +44,13 @@ async function myWriteFile(finalNewUser: string) {
     users = JSON.parse(await myReadfile());
 })();
 
-export function newUser(user: NewUser): boolean {
+export async function newUser(user: NewUser): Promise<boolean | User> { 
     for (let element of users) {
         if (element.username === user.username) {
             return false;
         }
     }
-    users.push({
+    let actualUser = {
         id: uuidv1(),
         username: user.username,
         password: ash.generate(user.password),
@@ -59,13 +59,11 @@ export function newUser(user: NewUser): boolean {
         address: user.address,
         phone: user.phone,
         email: user.email
-    });
+    }
+    users.push(actualUser);
     let finalNewUser = JSON.stringify(users, null, 2);
-    (async () => {
-        await myWriteFile(finalNewUser);
-    }) ();
-
-    return true;
+    await myWriteFile(finalNewUser);
+    return actualUser;
 }
 
 export function usersList(): Array<User> {
@@ -80,7 +78,7 @@ export function userById(username: string): User|boolean {
     return true;
 }
 
-export function updateUserFields(userToSearch: string, password?: string, name?: string, surname?: string, address?: string, phone?: string, email?: string): any {
+export async function updateUserFields(userToSearch: string, password?: string, name?: string, surname?: string, address?: string, phone?: string, email?: string): Promise<any> {
     for(let user of users){
         if(userToSearch == user.username){
             if(password){
@@ -102,23 +100,19 @@ export function updateUserFields(userToSearch: string, password?: string, name?:
                 user.email = email;
             }
             let finalNewUser = JSON.stringify(users, null, 2);
-            (async () => {
-                await myWriteFile(finalNewUser);
-            }) ();
+            await myWriteFile(finalNewUser);
             return user;
         }
     }
     return false;
 }
 
-export function deleteUser(uuid: string): Boolean {
+export async function deleteUser(uuid: string): Promise<Boolean> {
     for(let i = 0; i < users.length; i++){
         if(users[i].id === uuid){
             users.splice(i, 1);
             let finalNewUser = JSON.stringify(users, null, 2);
-            (async () => {
-                await myWriteFile(finalNewUser);
-            }) ();
+            await myWriteFile(finalNewUser);
             return true;
         }
     }
