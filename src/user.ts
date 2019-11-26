@@ -44,13 +44,13 @@ async function myWriteFile(finalNewUser: string) {
     users = JSON.parse(await myReadfile());
 })();
 
-export async function newUser(user: NewUser): Promise<boolean> {
+export async function newUser(user: NewUser): Promise<boolean | User> { 
     for (let element of users) {
         if (element.username === user.username) {
             return false;
         }
     }
-    users.push({
+    let actualUser = {
         id: uuidv1(),
         username: user.username,
         password: ash.generate(user.password),
@@ -59,10 +59,11 @@ export async function newUser(user: NewUser): Promise<boolean> {
         address: user.address,
         phone: user.phone,
         email: user.email
-    });
+    }
+    users.push(actualUser);
     let finalNewUser = JSON.stringify(users, null, 2);
     await myWriteFile(finalNewUser);
-    return true;
+    return actualUser;
 }
 
 export function usersList(): Array<User> {

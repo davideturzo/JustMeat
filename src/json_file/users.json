@@ -1,15 +1,5 @@
 [
   {
-    "id": "211d0610-0f97-11ea-b961-2bf39a35d6e1",
-    "username": "renato.russo",
-    "password": "sha1$c34353fb$1$925796beea2e1151a8094c2db300035d273116f8",
-    "name": "Filippo",
-    "surname": "Mangioglio",
-    "address": "Via Veronica 3",
-    "phone": "3246239490",
-    "email": "renato.russo@gmail.com"
-  },
-  {
     "id": "835ff110-0f98-11ea-8890-394c0b160928",
     "username": "giovanni.russo",
     "password": "sha1$0fd821e6$1$921e6d304ef499ef2f2dc4cf57ba79678dcc4167",
