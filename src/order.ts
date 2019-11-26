@@ -1,6 +1,9 @@
 import {v4 as uuidv1} from 'uuid';
 import fs from 'fs';
 import util from 'util';
+import { promisify } from 'util';
+import {User} from './user';
+import {Restaurants} from './restaurant';
 
 export interface OrderList{
     quantity : number;
@@ -19,14 +22,39 @@ export interface Order{
     statusOrder : boolean
 };
 
-const jsonStringUser  = (fs.readFileSync( __dirname + '/json_file/users.json','utf8'));
-const userList = JSON.parse(jsonStringUser);
-const jsonStringOrder  = (fs.readFileSync(__dirname + '/json_file/orders.json','utf8'));
-const orderList = JSON.parse(jsonStringOrder);
-const jsonStringRestaurant  = (fs.readFileSync(__dirname +'/json_file/restaurants.json','utf8'));
-const restaurantList = JSON.parse(jsonStringRestaurant);
+const jsonStringUser = '/json_file/users.json';
+const jsonStringOrder  ='/json_file/orders.json';
+const jsonStringRestaurant  ='/json_file/restaurants.json';
+let userList = Array<User>();
+let restaurantList = Array<Restaurants>();
+let orderList = Array<Order>();
 
-export function newOrder(order: Order): Object {
+const readFile = promisify(fs.readFile);
+async function myReadfile (jsonFile : string) {
+    try {
+      const file = await readFile(__dirname+jsonFile, 'utf-8' );
+      return file;
+    }
+    catch (err) {
+       throw err;
+    }
+}
+const writeFile = promisify(fs.writeFile);
+async function myWriteFile(jsonFile : string,result: string) {
+    try {
+        await writeFile(__dirname+jsonFile, result );
+    }
+    catch (err) {
+       throw err;
+    }
+}
+(async () => {
+    userList = JSON.parse(await myReadfile(jsonStringUser));
+    restaurantList = JSON.parse(await myReadfile(jsonStringRestaurant));
+    orderList = JSON.parse(await myReadfile(jsonStringOrder));
+})();
+
+export async function newOrder(order: Order): Promise<Object> {
     var timestampNow = new Date();
     var date = timestampNow.getDate() + "-" + (timestampNow.getMonth()+1) + "-" + timestampNow.getFullYear();
     var time = timestampNow.getHours() + ":" + timestampNow.getMinutes() + ":" + timestampNow.getSeconds();
@@ -34,19 +62,19 @@ export function newOrder(order: Order): Object {
     var totalPrice=0;
     var orderPlate =Array<OrderList>();
     var completeOrder =Object();
-    for(let idUser in userList){
-        if(userList[idUser].id === order.userId){
-            for(let idRestaurant in restaurantList ){
-                if(restaurantList[idRestaurant].id === order.restaurantId){
-                    for(let plates in order.orderItems){
-                        for(let item of restaurantList[idRestaurant].plate){
-                            if(item.name === order.orderItems[plates].namePlate){
+    for(let user of userList){
+        if(user.id === order.userId){
+            for(let restaurant of restaurantList ){
+                if(restaurant.id === order.restaurantId){
+                    for(let plates of order.orderItems){
+                        for(let item of restaurant.plate){
+                            if(item.name === plates.namePlate){
                                 orderPlate.push({
-                                    quantity : order.orderItems[plates].quantity,
-                                    namePlate : order.orderItems[plates].namePlate,
+                                    quantity : plates.quantity,
+                                    namePlate : plates.namePlate,
                                     price : item.price
                                 });
-                                totalPrice+=(order.orderItems[plates].price * order.orderItems[plates].quantity);
+                                totalPrice+=(item.price * plates.quantity);
                             }
                         }
                     }
@@ -62,12 +90,8 @@ export function newOrder(order: Order): Object {
                         statusOrder : false
                     }
                     orderList.push(completeOrder)
-                    const finalOrder = JSON.stringify(orderList,null,2);
-                    
-                    let writeFile = util.promisify(fs.writeFile);
-                    writeFile(__dirname+'/json_file/orders.json',finalOrder)
-                        .then(() => console.log("file created successfully with promisify!"))
-                        .catch(error => console.log(error));
+                    let finalOrder = JSON.stringify(orderList,null,2);
+                    await myWriteFile(jsonStringOrder,finalOrder);
                     return completeOrder;
                 } else{
                     return {response : "Restaurant not found"};
@@ -98,43 +122,39 @@ export function newOrder(order: Order): Object {
         return true;
     }else return false;
 } */
-export function changeStatusOrder(ID:string): Object | boolean {
-    for(let order in orderList){
-        if(orderList[order].ID ===ID){
-            let item = orderList[order];
-            if(item.statusOrder === false){
-                item.statusOrder = true;
-                orderList.splice(order,1,item);
+export async function changeStatusOrder(ID:string): Promise<Object | boolean> {
+    let counter =0;
+    for(let order of orderList){
+        if(order.id ===ID){
+            if(order.statusOrder === false){
+                order.statusOrder = true;
+                orderList.splice(counter,1,order);
                 const result = JSON.stringify(orderList,null,2);
-                const writeFile = util.promisify(fs.writeFile);
-                    writeFile(__dirname+'/json_file/orders.json',result)
-                        .then(() =>{return {response : "Your order has been accepted"} })
-                        .catch(error => console.log(error));
-                //fs.writeFileSync(__dirname+'/json_file/orders.json', result );
-                //return {response : "Your order has been accepted"};
+                await myWriteFile(jsonStringOrder,result);
+                console.log(order);
+                return order;
             } return {response : "You can't dismiss order"}
         }
+        counter++;
     }
     return {response : "Order not found"};
 }
 
-export function changeRatingOrder(ID:string,rating:BigInteger): Object | boolean {
-    for(let order in orderList){
-        if(orderList[order].ID ===ID){
-            let item = orderList[order];
-            if(item.rating == null){
-                if(item.rating >= 0 && item.rating <=5){
-                    item.rating = rating;
-                orderList.splice(order,1,item);
+export async function changeRatingOrder(ID:string,rating:number): Promise<Object | boolean> {
+    let counter=0;
+    for(let order of orderList){
+        if(order.id ===ID){
+            if(order.rating == null){
+                if(order.rating >= 0 && order.rating <=5){
+                    order.rating = rating;
+                orderList.splice(counter,1,order);
                 const result = JSON.stringify(orderList,null,2);
-                let writeFile = util.promisify(fs.writeFile);
-                    writeFile(__dirname+'/json_file/orders.json',result)
-                        .then(() => console.log("file created successfully with promisify!"))
-                        .catch(error => console.log(error));
-                return item;
+                await myWriteFile(jsonStringOrder,result);
+                return order;
                 }else return {response : "Rating should be a number between 0 and 5"};  
             } else return {response : "Your order has already received a vote"};
         }
+        counter++;
     }
     return {response : "Order not found"};
 }
@@ -142,28 +162,26 @@ export function changeRatingOrder(ID:string,rating:BigInteger): Object | boolean
 export function getOrdersList() : Object {
     return orderList;
 };
-export function deleteOrder(id: string): Object | Boolean {
-    for(let order in orderList){
-        if(orderList[order].ID ===id){
-            let item = orderList[order];
-            if(item.statusOrder === false){
-                orderList.splice(order,1);
+export async function deleteOrder(id: string): Promise<Object | Boolean> {
+    let counter =0;
+    for(let order of orderList){
+        if(order.id ===id){
+            if(order.statusOrder === false){
+                orderList.splice(counter,1);
                 const result = JSON.stringify(orderList,null,2);
-                let writeFile = util.promisify(fs.writeFile);
-                    writeFile(__dirname+'/json_file/orders.json',result)
-                        .then(() => console.log("file created successfully with promisify!"))
-                        .catch(error => console.log(error));
-                return item;
+                await myWriteFile(jsonStringOrder,result);
+                return order;
             }else return {response: "Can't delete accepted order"};
         }
+        counter++;
     }
     return {response : "Order not found"};
 };
 
 export function getOrdersById(id: string): Object {
-    for(let order in orderList){
-        if(orderList[order].ID === id){
-            return orderList[order];
+    for(let order of orderList){
+        if(order.id === id){
+            return order;
         }
     }
     return {response : "Order not found"};
@@ -171,9 +189,9 @@ export function getOrdersById(id: string): Object {
 
 export function getOrdersByUserId(id: string): Array<Order> | Object {
     var userOrders = Array<Order>();
-    for(let order in orderList){
-        if(orderList[order].userID === id){
-            userOrders.push(orderList[order]);
+    for(let order of orderList){
+        if(order.userId === id){
+            userOrders.push(order);
         }
     }
     if(userOrders.length >0){
@@ -183,9 +201,9 @@ export function getOrdersByUserId(id: string): Array<Order> | Object {
 };
 export function getOrdersByRestaurantId(id: string): Array<Order> | Object {
     var restaurantOrders = Array<Order>();
-    for(let order in orderList){
-        if(orderList[order].restaurantID === id){
-            restaurantOrders.push(orderList[order]);
+    for(let order of orderList){
+        if(order.restaurantId === id){
+            restaurantOrders.push(order);
         }
     }
     if(restaurantOrders.length >0){
@@ -194,10 +212,11 @@ export function getOrdersByRestaurantId(id: string): Array<Order> | Object {
     return {response : "This restaurant has not received any order"};
 };
 export function getOrdersByBothId(userID: string,restaurantID: string): Array<Order> | Object {
+    let counter = 0;
     var bothOrders = Array<Order>();
-    for(let order in orderList){
-        if(orderList[order].userID === userID && orderList[order].restaurantID === restaurantID){
-            bothOrders.push(orderList[order]);
+    for(let order of orderList){
+        if(order.userId === userID && order.restaurantId === restaurantID){
+            bothOrders.push(order);
         }
     }
     if(bothOrders.length >0){
@@ -208,11 +227,11 @@ export function getOrdersByBothId(userID: string,restaurantID: string): Array<Or
 export function getExpensiveOrder(userId : string): Array<Order> | Object {
     var userOrders = Array<Order>();
     var max = 0;
-    for(let order in orderList){
-        if(orderList[order].userID === userId){
-            if(orderList[order].totalAmount > max){
-                userOrders.splice(0,1,orderList[order]);
-                max = orderList[order].totalAmount;
+    for(let order of orderList){
+        if(order.userId === userId){
+            if(order.totalAmount > max){
+                userOrders.splice(0,1,order);
+                max = order.totalAmount;
             }
         }
     }
@@ -240,17 +259,17 @@ export function getExpensiveOrder(userId : string): Array<Order> | Object {
 export function getCheaperOrder(userID: string): Array<Order> | Object {
     var userOrders = Array<Order>();
     var min = 0;
-    for(let order in orderList){
-        if(orderList[order].userID === userID){
-            min = orderList[order].totalAmount;
+    for(let order of orderList){
+        if(order.userId === userID){
+            min = order.totalAmount;
             break;
         }
     }
-    for(let order in orderList){
-        if(orderList[order].userID === userID){
-            if(orderList[order].totalAmount < min){
-                userOrders.splice(0,1,orderList[order]);
-                min = orderList[order].totalAmount;
+    for(let order of orderList){
+        if(order.userId === userID){
+            if(order.totalAmount < min){
+                userOrders.splice(0,1,order);
+                min = order.totalAmount;
             }
         }
     }

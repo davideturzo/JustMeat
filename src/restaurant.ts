@@ -7,7 +7,7 @@ export interface Plates{
     price: number
 }
 
-export interface Restaurant{
+export interface Restaurants{
     id: string,
     name: string,
     address: string,
@@ -16,7 +16,7 @@ export interface Restaurant{
     rating: number|null,
     typology: Array<string>
 }
-let restaurants: Array<Restaurant>;
+let restaurants: Array<Restaurants>;
 
 const readFile = promisify(fs.readFile);
 async function myReadfile () {
@@ -43,11 +43,11 @@ async function myWriteFile(finalRestaurant: string) {
     restaurants = JSON.parse(await myReadfile());
 })();    
 
-export async function newRestaurant(rest: Restaurant): Promise<boolean|Object>{
+export async function newRestaurant(rest: Restaurants): Promise<boolean|Object>{
     const plates = Array<Plates>();
     for(let i of restaurants){
         if(i.name === rest.name){
-            return false
+            return (false)
         }
     }
     restaurants.push({
@@ -67,12 +67,12 @@ export async function newRestaurant(rest: Restaurant): Promise<boolean|Object>{
     return restaurants;
 }
 
-export function getRestaurantList(): Array<Restaurant>{
+export function getRestaurantList(): Array<Restaurants>{
     return restaurants;
 }
 
-export function restaurantById(id: string): Restaurant | undefined{
-    return restaurants.find( (restaurant: Restaurant) =>{
+export function restaurantById(id: string): Restaurants | undefined{
+    return restaurants.find( (restaurant: Restaurants) =>{
         return restaurant.id === id;
     });
 }

@@ -33,7 +33,7 @@ async function myReadfile () {
 const writeFile = promisify(fs.writeFile);
 async function myWriteFile(finalNewUser: string) {
     try {
-        const write = await writeFile(__dirname+'/json_file/users.json', finalNewUser );
+        await writeFile(__dirname+'/json_file/users.json', finalNewUser );
     }
     catch (err) {
        throw err;
