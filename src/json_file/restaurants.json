@@ -1,13 +1,13 @@
 [
   {
-    "id": "f693d71e-910b-48ec-b3f7-57e96eef6e61",
-    "name": "Pizza da Enrico",
-    "address": "viale Kennedy",
-    "email": "silente@bacchetta.power",
+    "id": "40cd0686-ce6e-42fa-98ff-371822b639ef",
+    "name": "Pizzeria da Endadafwfgaric",
+    "address": "via Kennedy",
+    "email": "enrico@daSilente.Potter",
     "plate": [
       {
         "name": "pastaCaSassa",
-        "price": 10
+        "price": "1500"
       }
     ],
     "rating": null,
