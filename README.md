@@ -25,7 +25,7 @@
 
 - `function changeStatusOrder(ID: string)` Change the status order using the id of the order. If the order has been already accepted by the restaurant, it will show you an error.
 
--`function changeRatingOrder(ID:string,rating:number)` This function, by using the id of the order and a star rating that you want to insert, allows you to give a vote for the order. It will show you an error if you already vote or the number of star that you want to insert is not between 0 and 5.
+- `function changeRatingOrder(ID:string,rating:number)` This function, by using the id of the order and a star rating that you want to insert, allows you to give a vote for the order. It will show you an error if you already vote or the number of star that you want to insert is not between 0 and 5.
 
 - `function getOrdersList()` same as getRestaurantList
 
