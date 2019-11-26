@@ -1,1 +1,18 @@
-[]
+[
+  {
+    "id": "40cd0686-ce6e-42fa-98ff-371822b639ef",
+    "name": "Pizzeria da Endadafwfgaric",
+    "address": "via Kennedy",
+    "email": "enrico@daSilente.Potter",
+    "plate": [
+      {
+        "name": "pastaCaSassa",
+        "price": "1500"
+      }
+    ],
+    "rating": null,
+    "typology": [
+      "Pizzeria, Ristorante"
+    ]
+  }
+]
