@@ -14,7 +14,7 @@ router.get('/', (req: Request, res: Response, next: NextFunction) => {
 });
 
 router.post('/create', (req: Request, res: Response, next: NextFunction) => {
-    if(!isNaN(req.body.name && req.body.address && req.body.email)){
+    if(!isNaN(req.body.name && req.body.address && req.body.email && req.body.plate && req.body.typology)){
         return res.status(400).send("name, address, email must be valid");
     }
     res.json(rest.newRestaurant(req.body));
@@ -22,13 +22,14 @@ router.post('/create', (req: Request, res: Response, next: NextFunction) => {
 });
 
 router.put('/update/:id', (req: Request, res: Response, next: NextFunction) => {
-        if(req.params.id){
-            if(req.body.name){
-                rest.updateRestaurantFields(req.params.id, req.body.name, req.body.address, req.body.email, req.body.plate);
-                return res.json(rest.getRestaurantList());
-            }
-        }
-        next();
+    if(!req.params.id){
+        return res.status(400).send('ID must be invalid');
+    }
+    if(req.body.name){
+        rest.updateRestaurantFields(req.params.id, req.body.name, req.body.address, req.body.email, req.body.plate);
+        return res.json(rest.getRestaurantList());
+    }
+    next();
 });
 router.delete('/delete/:id', (req: Request, res: Response, next: NextFunction) => {
     if(!req.params.id){

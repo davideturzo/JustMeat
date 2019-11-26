@@ -1,7 +1,6 @@
 import {v4 as uuidv1} from 'uuid';
 import fs from 'fs';
-const jsonStringRestaurant  = (fs.readFileSync(__dirname +'/json_file/restaurants.json','utf8'));
-const restaurantList = JSON.parse(jsonStringRestaurant);
+import { promisify } from 'util';
 
 export interface Plates{
     name: string,
@@ -14,93 +13,98 @@ export interface Restaurants{
     address: string,
     email: string,
     plate: Array<Plates>,
-    rating: number,
+    rating: number|null,
     typology: Array<string>
 }
+let restaurants: Array<Restaurants>;
 
-export function newRestaurant(rest: Restaurants): Object{
+const readFile = promisify(fs.readFile);
+async function myReadfile () {
+    try {
+      const file = await readFile(__dirname+'/json_file/restaurants.json', 'utf-8' );
+      return file;
+    }
+    catch (err) {
+       throw err;
+    }
+}
+
+const writeFile = promisify(fs.writeFile);
+async function myWriteFile(finalRestaurant: string) {
+    try {
+        await writeFile(__dirname+'/json_file/restaurants.json', finalRestaurant );
+    }
+    catch (err) {
+       throw err;
+    }
+}
+
+(async () => {
+    restaurants = JSON.parse(await myReadfile());
+})();    
+
+export async function newRestaurant(rest: Restaurants): Promise<boolean|Object>{
     const plates = Array<Plates>();
-    if(restaurantList.length === 0){
-        for(let i of rest.plate){
-            plates.push(i);
-        }
-        let newRest = {
-            id: uuidv1(),
-            name: rest.name,
-            address: rest.address,
-            email: rest.email,
-            plate : plates,
-            rating : null,
-            typology: rest.typology
-        }
-        restaurantList.push(newRest);
-        const finalRestaurant = JSON.stringify(restaurantList,null,2);
-        fs.writeFileSync(__dirname+'/json_file/restaurants.json', finalRestaurant );
-    return newRest;
-    };
-    for(let i of restaurantList){
+    for(let i of restaurants){
         if(i.name === rest.name){
-            return {"response" : "This restaurant exists"};
-        } else{
-            for(let i of rest.plate){
-                plates.push(i);
-            }
-                let newRest = {
-                    id: uuidv1(),
-                    name: rest.name,
-                    address: rest.address,
-                    email: rest.email,
-                    plate : plates,
-                    rating : null,
-                    typology: rest.typology
-                }
-                restaurantList.push(newRest);
-                const finalRestaurant = JSON.stringify(restaurantList,null,2);
-                fs.writeFileSync(__dirname+'/json_file/restaurants.json', finalRestaurant );
-                console.log(__dirname+'/json_file/restaurants.json');
-            return newRest;
+            return false
         }
     }
-    return {"response" : "Wrong way"};
+    restaurants.push({
+        id: uuidv1(),
+        name: rest.name,
+        address: rest.address,
+        email: rest.email,
+        plate : plates,
+        rating : null,
+        typology: rest.typology
+    });
+    for(let i of rest.plate){
+        plates.push(i);
+    }
+    const finalRestaurant = JSON.stringify(restaurants,null,2);
+    await myWriteFile(finalRestaurant);
+    return restaurants;
 }
 
 export function getRestaurantList(): Array<Restaurants>{
-    return restaurantList;
+    return restaurants;
 }
 
-export function restaurantById(id: string): any{
-    return restaurantList.find((restaurantList:any)=>{
-        return restaurantList.id === id;
-    })
+export function restaurantById(id: string): Restaurants | undefined{
+    return restaurants.find( (restaurant: Restaurants) =>{
+        return restaurant.id === id;
+    });
 }
 
-export function updateRestaurantFields(restaurantToSearch: string, name?: string, address?: string, email?: string, plate?: Array<Plates>): Boolean {
-    for(let i = 0; i < restaurantList.length; i ++){
-        if(restaurantToSearch == restaurantList[i].id){
+export async function updateRestaurantFields(restaurantToSearch: string, name?: string, address?: string, email?: string, plate?: Array<Plates>): Promise<Boolean> {
+    for(let i = 0; i < restaurants.length; i ++){
+        if(restaurantToSearch == restaurants[i].id){
             if(name){
-                restaurantList[i].name = name;
+                restaurants[i].name = name;
             }
             if(address){
-                restaurantList[i].address = address;
+                restaurants[i].address = address;
             }
             if(email){
-                restaurantList[i].email = email;
+                restaurants[i].email = email;
             }
             if(plate){
-                restaurantList[i].plate = plate;
+                restaurants[i].plate = plate;
             }
-                const finalRestaurant = JSON.stringify(restaurantList,null,2);
-                fs.writeFileSync(__dirname+'/json_file/restaurants.json', finalRestaurant );
+            const finalRestaurant = JSON.stringify(restaurants,null,2);
+            await myWriteFile(finalRestaurant);
+            return true;
         }
     }
-    return true;
+    return false;
 }
 
 export function deleteRestaurant(id: string): Boolean {
-    for(let i = 0; i < restaurantList.length; i++){
-        if(restaurantList[i].id === id){
-            restaurantList.splice(i, 1);
-            let finalRestaurant = JSON.stringify(restaurantList, null, 2);
+    for(let i = 0; i < restaurants.length; i++){
+        if(restaurants[i].id === id){
+            restaurants.splice(i, 1);
+            let finalRestaurant = JSON.stringify(restaurants, null, 2);
             fs.writeFileSync(__dirname+'/json_file/restaurants.json', finalRestaurant);
             return true;
         }
