@@ -9,7 +9,7 @@ export interface Plates{
 }
 
 export interface Restaurants{
-    ID: string,
+    id: string,
     name: string,
     address: string,
     email: string,
