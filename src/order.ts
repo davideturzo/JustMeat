@@ -1,6 +1,5 @@
 import {v4 as uuidv1} from 'uuid';
 import fs from 'fs';
-import util from 'util';
 import { promisify } from 'util';
 import {User} from './user';
 import {Restaurants} from './restaurant';
@@ -75,7 +74,7 @@ export async function newOrder(order: Order): Promise<Object> {
                                     price : item.price
                                 });
                                 totalPrice+=(item.price * plates.quantity);
-                            }
+                            } else return {response : "Can't order this plate"}
                         }
                     }
                     completeOrder={
@@ -131,7 +130,6 @@ export async function changeStatusOrder(ID:string): Promise<Object | boolean> {
                 orderList.splice(counter,1,order);
                 const result = JSON.stringify(orderList,null,2);
                 await myWriteFile(jsonStringOrder,result);
-                console.log(order);
                 return order;
             } return {response : "You can't dismiss order"}
         }

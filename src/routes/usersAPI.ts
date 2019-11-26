@@ -35,7 +35,7 @@ router.put('/:username', (req: Request, res: Response, next: NextFunction) => {
     next();
 });
 
-router.delete('/users/:id', (req: Request, res: Response, next: NextFunction) => {
+router.delete('/:id', (req: Request, res: Response, next: NextFunction) => {
     if(!req.params.id){
         return res.status(404).send("Invalid user id");
     }

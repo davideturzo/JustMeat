@@ -5,14 +5,17 @@ const router: Router = express.Router();
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({extended: true}));
 
-router.post('/create', (req, res) => {
-    return res.json(order.newOrder(req.body));
+router.post('/create', async (req, res) => {
+    const result = await order.newOrder(req.body);
+    return res.json({result});
 });
-router.put('/:id/acceptOrder', (req, res) => {
-    return res.json(order.changeStatusOrder(req.params.id));
+router.put('/:id/acceptOrder', async (req, res) => {
+    const result = await res.json(order.changeStatusOrder(req.params.id));
+    return res.json(result);
 });
-router.put('/:id/putRating', (req, res) => {
-    return res.json(order.changeRatingOrder(req.params.id,req.query.rating));
+router.put('/:id/putRating', async (req, res) => {
+    const result = await res.json(order.changeRatingOrder(req.params.id,req.query.rating));
+    return res.json(result);
 });
 router.delete('/delete/:id', (req, res) => {
     return res.json(order.deleteOrder(req.params.id));
