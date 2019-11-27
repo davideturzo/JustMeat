@@ -64,7 +64,6 @@ export async function newOrder(order: Order): Promise<Object> {
     for(let user of userList){
         if(user.id === order.userId){
             for(let restaurant of restaurantList ){
-                console.log(restaurant.id);
                 if(restaurant.id === order.restaurantId){
                     for(let plates of order.orderItems){
                         for(let item of restaurant.plate){
