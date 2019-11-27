@@ -64,6 +64,7 @@ export async function newOrder(order: Order): Promise<Object> {
     for(let user of userList){
         if(user.id === order.userId){
             for(let restaurant of restaurantList ){
+                console.log(restaurant.id);
                 if(restaurant.id === order.restaurantId){
                     for(let plates of order.orderItems){
                         for(let item of restaurant.plate){
@@ -92,13 +93,11 @@ export async function newOrder(order: Order): Promise<Object> {
                     let finalOrder = JSON.stringify(orderList,null,2);
                     await myWriteFile(jsonStringOrder,finalOrder);
                     return completeOrder;
-                } else{
-                    return {response : "Restaurant not found"};
                 }
             }
-        } else{
-            return {response : "User not found"};
+            return {response : "Restaurant not found"};            
         }
+        return {response : "User not found"};
     }
     return {response : "Nothing work property"};
 }

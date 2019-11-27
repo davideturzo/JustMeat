@@ -24,7 +24,7 @@ router.post('/create', async (req: Request, res: Response, next: NextFunction) =
         return res.status(400).send("address, phone and email must be valid");
     }
     const response = await user.newUser(req.body);
-    res.json({response});
+    res.json(response);
     next();
 });
 
@@ -33,7 +33,7 @@ router.put('/:username', async (req: Request, res: Response, next: NextFunction)
         return res.status(400).send("Invalid username");
     }
     const response = await user.updateUserFields(req.params.username, req.body.password, req.body.name, req.body.surname, req.body.address, req.body.phone, req.body.email);
-    res.json({response});
+    res.json(response);
     next();
 });
 
@@ -42,7 +42,7 @@ router.delete('/:id', async (req: Request, res: Response) => {
         return res.status(404).send("Invalid user id");
     }
     const response = await user.deleteUser(req.params.id)
-    res.json({response});
+    res.json(response);
 });
 
 export = router;

@@ -48,5 +48,15 @@
     "address": "Via Mascagni 3",
     "phone": "3246239490",
     "email": "giuseppe.brischetto@gmail.com"
+  },
+  {
+    "id": "be3cbb90-10f3-11ea-a94f-c112ddaec909",
+    "username": "afnaijgneou.russo",
+    "password": "sha1$ef51a696$1$ab2c319857df772fa8a17e87fc8a534c72aed354",
+    "name": "FRANCO",
+    "surname": "FALLO",
+    "address": "Via fallo 3",
+    "phone": "3236249490",
+    "email": "CIAO.pippo"
   }
 ]

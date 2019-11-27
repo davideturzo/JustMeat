@@ -18,7 +18,7 @@ router.post('/create', async (req: Request, res: Response, next: NextFunction) =
         return res.status(400).send("name, address, email must be valid");
     }
     const response = await rest.newRestaurant(req.body);
-    res.json({response});
+    res.json(response);
 });
 
 router.put('/update/:id', async (req: Request, res: Response, next: NextFunction) => {

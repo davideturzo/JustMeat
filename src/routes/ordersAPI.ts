@@ -7,7 +7,7 @@ router.use(bodyParser.urlencoded({extended: true}));
 
 router.post('/create', async (req, res) => {
     const result = await order.newOrder(req.body);
-    return res.json({result});
+    return res.json(result);
 });
 router.put('/:id/acceptOrder', async (req, res) => {
     const result = await res.json(order.changeStatusOrder(req.params.id));
