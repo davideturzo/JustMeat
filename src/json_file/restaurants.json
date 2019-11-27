@@ -1,0 +1,18 @@
+[
+  {
+    "id": "cb9c7a33-2b37-4be0-aac3-7a5ffc40b182",
+    "name": "Pizza da FLEXERIA",
+    "address": "viale FLEX",
+    "email": "flex@flex.flexaro",
+    "plate": [
+      {
+        "name": "PastaColFLEX",
+        "price": 10
+      }
+    ],
+    "rating": null,
+    "typology": [
+      "FLEXERIA, RISTOFLEXERA"
+    ]
+  }
+]
