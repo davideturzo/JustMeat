@@ -1,8 +1,6 @@
 # :meat_on_bone:   JUSTMEAT  :meat_on_bone:
 ## JustEat for meat friendly people where you can order whatever you want, featuring Restaurants located in italian cities.
 
-#### :computer: INSTALLATION :computer:
-**`npm install justmeat`**
 
 #### :page_facing_up: USAGE :page_facing_up:
 
