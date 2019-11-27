@@ -68,19 +68,26 @@ describe('GET /orders', () => {
         request(app).get('/orders').expect('Content-Type', /json/).expect(200, done);
     });
 });
-describe('POST /orders/create', () => {
+describe('POST /restaurants/create', () => {
     let data = {
-        "userId" : "4e2fd5f0-0e03-11ea-93a5-213c75413eaa",
-        "restaurantId" : "5a1d5b20-0d41-4c26-8a21-0a5b6d9c3884",
-        "shippingAddress" : "Some value",
-        "orderItems" : [{
-            "quantity" : 1,
-            "namePlate" :"pizza"
-        }]
+        id: uuidv1(),
+        "name": "Pizza da NEIC",
+        "address": "viale FLEX",
+        "email": "flex@flex.flexaro",
+        "plate": [
+          {
+            "name": "PastaColFLEX",
+            "price": 10
+          }
+        ],
+        "rating": null,
+        "typology": [
+          "FLEXERIA, RISTOFLEXERA"
+        ]
     }
     it('respond with json containing a order just created', (done) => {
         request(app)
-            .post('/orders/create')
+            .post('/restaurants/create')
             .send(data)
             .set('Accept', 'application/json')
             .expect('Content-Type', /json/)
@@ -92,13 +99,26 @@ describe('POST /orders/create', () => {
     });
 });
 
-
-
-
-
-
-
-
-
-
-
+    describe('POST /orders/create', () => {
+        let data = {
+            "userId" : "4e2fd5f0-0e03-11ea-93a5-213c75413eaa",
+            "restaurantId" : "5a1d5b20-0d41-4c26-8a21-0a5b6d9c3884",
+            "shippingAddress" : "Some value",
+            "orderItems" : [{
+                "quantity" : 1,
+                "namePlate" :"pizza"
+            }]
+        }
+        it('respond with json containing a order just created', (done) => {
+            request(app)
+                .post('/orders/create')
+                .send(data)
+                .set('Accept', 'application/json')
+                .expect('Content-Type', /json/)
+                .expect(200)
+                .end((err: any) => {
+                    if(err) return done(err);
+                    done();
+                });
+        });
+});
