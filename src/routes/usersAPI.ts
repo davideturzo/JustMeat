@@ -5,14 +5,14 @@ const router: Router = express.Router();
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({extended: true}));
 
-router.get('/', (req: Request, res: Response, next: NextFunction) => {
+router.get('/', async (req: Request, res: Response, next: NextFunction) => {
     if(!isNaN(req.query.username)){
         return res.status(400).send("Username must be valid");
     }
     if(req.query.username){
-       return res.json(user.userById(req.query.username));
+       return res.json(await user.userById(req.query.username));
     } 
-    res.json(user.usersList());
+    res.json(await user.usersList());
     next();
 });
 

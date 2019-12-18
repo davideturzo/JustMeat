@@ -40,11 +40,12 @@ async function myWriteFile(finalNewUser: string) {
     }
 }
 
-(async () => {
-    users = JSON.parse(await myReadfile());
-})();
+// (async () => {
+//     users = JSON.parse(await myReadfile());
+// })();
 
 export async function newUser(user: NewUser): Promise<boolean | User> { 
+    users = JSON.parse(await myReadfile());
     for (let element of users) {
         if (element.username === user.username) {
             return false;
@@ -66,10 +67,12 @@ export async function newUser(user: NewUser): Promise<boolean | User> {
     return actualUser;
 }
 
-export function usersList(): Array<User> {
+export async function usersList(): Promise<Array<User>> {
+    users = JSON.parse(await myReadfile());
     return users;
 }
-export function userById(username: string): User|boolean {
+export async function userById(username: string): Promise<User | boolean> {
+    users = JSON.parse(await myReadfile());
     for(let element of users){
         if(username == element.username){
             return element;
@@ -79,6 +82,7 @@ export function userById(username: string): User|boolean {
 }
 
 export async function updateUserFields(userToSearch: string, password?: string, name?: string, surname?: string, address?: string, phone?: string, email?: string): Promise<any> {
+    users = JSON.parse(await myReadfile());
     for(let user of users){
         if(userToSearch == user.username){
             if(password){
@@ -108,6 +112,7 @@ export async function updateUserFields(userToSearch: string, password?: string, 
 }
 
 export async function deleteUser(uuid: string): Promise<Boolean> {
+    users = JSON.parse(await myReadfile());
     for(let i = 0; i < users.length; i++){
         if(users[i].id === uuid){
             users.splice(i, 1);

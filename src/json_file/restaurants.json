@@ -3,6 +3,7 @@
     "id": "cb9c7a33-2b37-4be0-aac3-7a5ffc40b182",
     "name": "Pizza da FLEXERIA",
     "address": "viale FLEX",
+    "city": "Torino",
     "email": "flex@flex.flexaro",
     "plate": [
       {
@@ -13,6 +14,57 @@
     "rating": null,
     "typology": [
       "FLEXERIA, RISTOFLEXERA"
+    ]
+  },
+  {
+    "id": "79de3a72-8a6b-438c-8e3e-e58f39ec11a7",
+    "name": "Pizza da NEIC",
+    "address": "viale FLEX",
+    "city": "Milano",
+    "email": "flex@flex.flexaro",
+    "plate": [
+      {
+        "name": "PizzaColFlex",
+        "price": 10
+      }
+    ],
+    "rating": null,
+    "typology": [
+      "RISTORANTE, PIZZERIA"
+    ]
+  },
+  {
+    "id": "9b575aa8-6412-40d4-b167-f2edb45e53f7",
+    "name": "Pizza da Domenico",
+    "address": "viale DOmenicale",
+    "city": "Milano",
+    "email": "domenico@pizzadaDominic",
+    "plate": [
+      {
+        "name": "PizzaConDomenico",
+        "price": 1000
+      }
+    ],
+    "rating": null,
+    "typology": [
+      "RISTORANTE, PIZZERDOMEN"
+    ]
+  },
+  {
+    "id": "664cd96c-f2ca-46b2-8d45-a6c300a46b2d",
+    "name": "Pizza da SanGennaro",
+    "address": "viale Genovese",
+    "city": "Catania",
+    "email": "SanGennaro@EHEHE.flex",
+    "plate": [
+      {
+        "name": "PizzaBuona",
+        "price": 2
+      }
+    ],
+    "rating": null,
+    "typology": [
+      "RISTORANTE, PIZZASANTA"
     ]
   }
 ]
