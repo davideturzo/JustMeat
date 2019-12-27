@@ -14,10 +14,6 @@ export interface NewUser {
 export interface User extends NewUser {
     id: string
 }
-export interface Login {
-    email: string,
-    password: string
-}
 let users: Array<User>;
 /* myReadfile().then(res => {
     const jsonStringUser = res;
@@ -48,10 +44,10 @@ async function myWriteFile(finalNewUser: string) {
 //     users = JSON.parse(await myReadfile());
 // })();
 
-export async function login(login: Login): Promise<boolean | string> {
+export async function login(email: string, password: string): Promise<boolean | string> {
     users = JSON.parse(await myReadfile());
     for (let user of users) {
-        if(login.email === user.email && ash.verify(login.password, user.password)) {
+        if(email === user.email && ash.verify(password, user.password)) {
             return "Welcome " + user.username;
         }
     }

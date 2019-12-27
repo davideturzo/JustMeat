@@ -65,6 +65,8 @@
 
 **- `function newUser(user: NewUser)`** Create a new User, and, check, in the meantime, if the User that you want to add already exist.
 
+**- `function login(email: string, password: string)`** A simple login call that verify user email and password, and in affermative case return Welcome "username"
+
 **- `function usersList()`** Displays the list of all the existing users in the network.
 
 **- `function userById(username: string)`** Allows to search a User by his unique ID assigned.

@@ -20,7 +20,7 @@ router.post('/login', async (req: Request, res: Response, next: NextFunction) =>
     if(!isNaN(req.body.email && req.body.password)){
         return res.status(400).send("Fields must be valid");
     }
-    const response = await user.login(req.body);
+    const response = await user.login(req.body.email, req.body.password);
     res.json(response);
     next();
 });
