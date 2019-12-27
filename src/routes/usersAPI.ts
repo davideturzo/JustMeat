@@ -16,6 +16,15 @@ router.get('/', async (req: Request, res: Response, next: NextFunction) => {
     next();
 });
 
+router.post('/login', async (req: Request, res: Response, next: NextFunction) => {
+    if(!isNaN(req.body.email && req.body.password)){
+        return res.status(400).send("Fields must be valid");
+    }
+    const response = await user.login(req.body);
+    res.json(response);
+    next();
+});
+
 router.post('/create', async (req: Request, res: Response, next: NextFunction) => {
     if(!isNaN(req.body.username && req.body.name && req.body.surname)){
        return res.status(400).send("username, name, surname must be valid");
