@@ -18,10 +18,13 @@ router.get('/', async (req: Request, res: Response, next: NextFunction) => {
 
 router.post('/login', async (req: Request, res: Response, next: NextFunction) => {
     if(!isNaN(req.body.email && req.body.password)){
-        return res.status(400).send("Fields must be valid");
+        return res.status(400).send("Missing fields");
     }
     const response = await user.login(req.body.email, req.body.password);
-    res.json(response);
+    if(response === false) {
+       return res.status(401).send("Invalid email or password");
+    }
+    res.json({response});
     next();
 });
 
@@ -33,7 +36,7 @@ router.post('/create', async (req: Request, res: Response, next: NextFunction) =
         return res.status(400).send("address, phone and email must be valid");
     }
     const response = await user.newUser(req.body);
-    res.json(response);
+    res.json({response});
     next();
 });
 

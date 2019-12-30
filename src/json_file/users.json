@@ -68,5 +68,35 @@
     "address": "Via Pietro Mascagni 5",
     "phone": "3409814560",
     "email": "mario.urso@gmail.com"
+  },
+  {
+    "id": "accdb5f0-2b1d-11ea-99d8-2352d078e76a",
+    "username": "lucrezia.ragusa",
+    "password": "sha1$3b1a4a83$1$df24124b601d5605a928a3dcdffaf07c083d0fca",
+    "name": "Lucrezia",
+    "surname": "Ragusa",
+    "address": "Via Pedara 6",
+    "phone": "3297087442",
+    "email": "lucreziaragusa@gmail.com"
+  },
+  {
+    "id": "cde526c0-2b26-11ea-af3d-cd5416bc09a8",
+    "username": "alfio.scuderi",
+    "password": "sha1$bc103b36$1$a9a6b2065cbcf1e0689f93e465ac554e4e962003",
+    "name": "Alfio",
+    "surname": "Scuderi",
+    "address": "Via Luigi Sturzo 18",
+    "phone": "3409429197",
+    "email": "alfio.scuderi@gmail.com"
+  },
+  {
+    "id": "24cc6fe0-2b2a-11ea-b58e-05ce98a2d0fa",
+    "username": "antonio.corsaro",
+    "password": "sha1$919bb908$1$481b96329fef985a0af0478ab4addc5b1d5cce15",
+    "name": "Antonio",
+    "surname": "Corsaro",
+    "address": "Via della Concordia 14d",
+    "phone": "3281098174",
+    "email": "antonio.corsaro@gmail.com"
   }
 ]

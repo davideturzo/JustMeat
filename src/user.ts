@@ -1,6 +1,7 @@
 import uuidv1 from 'uuid/v1';
 import ash from 'password-hash';
 import fs from 'fs';
+import jwt from 'jsonwebtoken';
 import { promisify } from 'util';
 export interface NewUser {
     username: string,
@@ -44,17 +45,19 @@ async function myWriteFile(finalNewUser: string) {
 //     users = JSON.parse(await myReadfile());
 // })();
 
-export async function login(email: string, password: string): Promise<boolean | string> {
+export async function login(email: string, password: string): Promise<string|boolean> {
     users = JSON.parse(await myReadfile());
     for (let user of users) {
         if(email === user.email && ash.verify(password, user.password)) {
-            return "Welcome " + user.username;
+            let payload = { subject: user.id }
+            let token = jwt.sign(payload, 'secret');
+            return token;
         }
     }
     return false;
 }
 
-export async function newUser(user: NewUser): Promise<boolean | User> { 
+export async function newUser(user: NewUser): Promise<boolean | string> { 
     users = JSON.parse(await myReadfile());
     for (let element of users) {
         if (element.username === user.username) {
@@ -73,8 +76,10 @@ export async function newUser(user: NewUser): Promise<boolean | User> {
     }
     users.push(actualUser);
     let finalNewUser = JSON.stringify(users, null, 2);
+    let payload = { subject: actualUser.id }
+    let token = jwt.sign(payload, 'secret');
     await myWriteFile(finalNewUser);
-    return actualUser;
+    return token;
 }
 
 export async function usersList(): Promise<Array<User>> {
