@@ -58,5 +58,15 @@
     "address": "Via fallo 3",
     "phone": "3236249490",
     "email": "CIAO.pippo"
+  },
+  {
+    "id": "6a70be40-2af1-11ea-aa94-7f8cf447a7e5",
+    "username": "mario.urso",
+    "password": "sha1$352cc08d$1$8c478431fb560ac586a68ea34906bbfe38973e79",
+    "name": "Mario",
+    "surname": "Urso",
+    "address": "Via Pietro Mascagni 5",
+    "phone": "3409814560",
+    "email": "mario.urso@gmail.com"
   }
 ]

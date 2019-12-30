@@ -80,6 +80,11 @@ export function restaurantById(id: string): Restaurants | undefined{
     });
 }
 
+export function restaurantByCity(city: string): Array<Restaurants> | undefined{
+    return restaurants.filter( (restaurant: Restaurants) => restaurant.city === city);
+}
+
+
 export async function updateRestaurantFields(restaurantToSearch: string, name?: string, address?: string, email?: string, plate?: Array<Plates>): Promise<Boolean | Restaurants> {
     for(let i = 0; i < restaurants.length; i ++){
         if(restaurantToSearch == restaurants[i].id){

@@ -9,6 +9,9 @@ router.get('/', (req: Request, res: Response, next: NextFunction) => {
     if(req.query.id){
         return res.json(rest.restaurantById(req.query.id));
     }
+    if(req.query.city){
+        return res.json(rest.restaurantByCity(req.query.city));
+    }
     res.json(rest.getRestaurantList());
     next();
 });
