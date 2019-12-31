@@ -1,6 +1,7 @@
 import express, {Request, Response, NextFunction, Router} from 'express';
 import * as user from '../user';
 import bodyParser from 'body-parser';
+import jwt from 'jsonwebtoken';
 const router: Router = express.Router();
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({extended: true}));

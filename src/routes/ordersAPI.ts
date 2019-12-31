@@ -1,23 +1,40 @@
 import express, {Request, Response, NextFunction, Router} from 'express';
 import * as order from '../order';
 import bodyParser from 'body-parser';
+import jwt from 'jsonwebtoken';
 const router: Router = express.Router();
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({extended: true}));
 
-router.post('/create', async (req, res) => {
+function verifyToken(req: any, res: any, next: any) {
+    if(!req.headers.authorization) {
+        return res.status(401).send('Unauthorized request');
+    }
+    let token = req.headers.authorization.split(' ')[1];
+    if(token === 'null') {
+        return res.status(401).send('Unauthorized request');
+    }
+    let payload = jwt.verify(token, 'secret') as any;
+    if(!payload) {
+        return res.status(401).send('Unauthorized request');
+    }
+    req.userId = payload.subject;
+    next();
+}
+
+router.post('/create', verifyToken, async (req, res) => {
     const result = await order.newOrder(req.body);
     return res.json(result);
 });
-router.put('/:id/acceptOrder', async (req, res) => {
+router.put('/:id/acceptOrder', verifyToken, async (req, res) => {
     const result = await res.json(order.changeStatusOrder(req.params.id));
     return res.json(result);
 });
-router.put('/:id/putRating', async (req, res) => {
+router.put('/:id/putRating', verifyToken, async (req, res) => {
     const result = await res.json(order.changeRatingOrder(req.params.id,req.query.rating));
     return res.json(result);
 });
-router.delete('/delete/:id', (req, res) => {
+router.delete('/delete/:id', verifyToken, (req, res) => {
     return res.json(order.deleteOrder(req.params.id));
 });
 router.get('/', (req, res) => {
