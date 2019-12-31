@@ -26,7 +26,7 @@ router.post('/create', verifyToken, async (req, res) => {
     const result = await order.newOrder(req.body);
     return res.json(result);
 });
-router.put('/:id/acceptOrder', verifyToken, async (req, res) => {
+router.put('/:id/acceptOrder', async (req, res) => {
     const result = await res.json(order.changeStatusOrder(req.params.id));
     return res.json(result);
 });

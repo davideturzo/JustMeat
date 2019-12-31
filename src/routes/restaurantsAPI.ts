@@ -24,6 +24,11 @@ router.post('/create', async (req: Request, res: Response, next: NextFunction) =
     res.json(response);
 });
 
+router.get('/:name', (req: Request, res: Response, next: NextFunction) => {
+    res.json(rest.restaurantByName(req.params.name));
+    next();
+});
+
 router.put('/update/:id', async (req: Request, res: Response, next: NextFunction) => {
     if(!req.params.id){
         return res.status(400).send('ID must be invalid');

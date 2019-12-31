@@ -98,5 +98,15 @@
     "address": "Via della Concordia 14d",
     "phone": "3281098174",
     "email": "antonio.corsaro@gmail.com"
+  },
+  {
+    "id": "b5d60a30-2be5-11ea-a266-1b7414b919cd",
+    "username": "admin",
+    "password": "sha1$dbe034de$1$c2fc0132c184e39db5b152556ddc575dadf0a29f",
+    "name": "Pierantonio",
+    "surname": "Petralia",
+    "address": "No address",
+    "phone": "3890439101",
+    "email": "admin@gmail.com"
   }
 ]

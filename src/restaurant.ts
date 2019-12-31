@@ -74,6 +74,12 @@ export function getRestaurantList(): Array<Restaurants>{
     return restaurants;
 }
 
+export function restaurantByName(name: string): Restaurants | undefined{
+    return restaurants.find( (restaurant: Restaurants) =>{
+        return restaurant.name === name;
+    });
+}
+
 export function restaurantById(id: string): Restaurants | undefined{
     return restaurants.find( (restaurant: Restaurants) =>{
         return restaurant.id === id;
