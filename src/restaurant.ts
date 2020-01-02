@@ -15,7 +15,7 @@ export interface Restaurants{
     email: string,
     plate: Array<Plates>,
     rating: number|null,
-    typology: Array<string>
+    typology: string
 }
 let restaurants: Array<Restaurants>;
 

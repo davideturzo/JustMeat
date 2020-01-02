@@ -12,9 +12,7 @@
       }
     ],
     "rating": null,
-    "typology": [
-      "FLEXERIA, RISTOFLEXERA"
-    ]
+    "typology": "RISTORANTE"
   },
   {
     "id": "79de3a72-8a6b-438c-8e3e-e58f39ec11a7",
@@ -29,9 +27,7 @@
       }
     ],
     "rating": null,
-    "typology": [
-      "RISTORANTE, PIZZERIA"
-    ]
+    "typology": "RISTORANTE PIZZERIA"
   },
   {
     "id": "9b575aa8-6412-40d4-b167-f2edb45e53f7",
@@ -46,9 +42,7 @@
       }
     ],
     "rating": null,
-    "typology": [
-      "RISTORANTE, PIZZERDOMEN"
-    ]
+    "typology": "RISTORANTE"
   },
   {
     "id": "664cd96c-f2ca-46b2-8d45-a6c300a46b2d",
@@ -63,8 +57,6 @@
       }
     ],
     "rating": null,
-    "typology": [
-      "RISTORANTE, PIZZASANTA"
-    ]
+    "typology": "RISTORANTE"
   }
 ]
