@@ -47,9 +47,13 @@ async function myWriteFile(finalNewUser: string) {
 
 export async function login(email: string, password: string): Promise<string|boolean> {
     users = JSON.parse(await myReadfile());
+    let payload;
     for (let user of users) {
         if(email === user.email && ash.verify(password, user.password)) {
-            let payload = { subject: user.id }
+            if(user.username === 'admin' && password === 'admin') {
+                payload = { subject: user.id, username: user.username, isAdmin: true }
+            }
+            payload = { subject: user.id, username: user.username, isAdmin: false }
             let token = jwt.sign(payload, 'secret');
             return token;
         }
@@ -76,7 +80,11 @@ export async function newUser(user: NewUser): Promise<boolean | string> {
     }
     users.push(actualUser);
     let finalNewUser = JSON.stringify(users, null, 2);
-    let payload = { subject: actualUser.id }
+    let payload;
+    if(actualUser.username === 'admin') {
+        payload = { subject: actualUser.id, username: user.username, isAdmin: true }
+    }
+    payload = { subject: actualUser.id, username: user.username, isAdmin: false }
     let token = jwt.sign(payload, 'secret');
     await myWriteFile(finalNewUser);
     return token;
