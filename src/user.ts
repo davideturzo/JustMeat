@@ -51,9 +51,18 @@ export async function login(email: string, password: string): Promise<string|boo
     for (let user of users) {
         if(email === user.email && ash.verify(password, user.password)) {
             if(user.username === 'admin' && password === 'admin') {
-                payload = { subject: user.id, username: user.username, isAdmin: true }
+                payload = { 
+                    subject: user.id, 
+                    username: user.username, 
+                    isAdmin: true 
+                }
+            } else {
+                payload = { 
+                    subject: user.id, 
+                    username: user.username, 
+                    isAdmin: false 
+                }
             }
-            payload = { subject: user.id, username: user.username, isAdmin: false }
             let token = jwt.sign(payload, 'secret');
             return token;
         }
@@ -82,9 +91,19 @@ export async function newUser(user: NewUser): Promise<boolean | string> {
     let finalNewUser = JSON.stringify(users, null, 2);
     let payload;
     if(actualUser.username === 'admin') {
-        payload = { subject: actualUser.id, username: user.username, isAdmin: true }
+        payload = { 
+            subject: actualUser.id, 
+            username: user.username, 
+            isAdmin: true 
+        }
+    } else {
+        payload = { 
+            subject: actualUser.id, 
+            username: user.username, 
+            isAdmin: false 
+        }
     }
-    payload = { subject: actualUser.id, username: user.username, isAdmin: false }
+    
     let token = jwt.sign(payload, 'secret');
     await myWriteFile(finalNewUser);
     return token;
