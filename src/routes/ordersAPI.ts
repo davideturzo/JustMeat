@@ -14,7 +14,7 @@ function verifyToken(req: any, res: any, next: any) {
     if(token === 'null') {
         return res.status(401).send('Unauthorized request');
     }
-    let payload = jwt.verify(token, 'secret') as any;
+    let payload = jwt.verify(token, 'FLIZsTmhpB') as any;
     if(!payload) {
         return res.status(401).send('Unauthorized request');
     }

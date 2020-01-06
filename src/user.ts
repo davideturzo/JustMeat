@@ -63,7 +63,7 @@ export async function login(email: string, password: string): Promise<string|boo
                     isAdmin: false 
                 }
             }
-            let token = jwt.sign(payload, 'secret');
+            let token = jwt.sign(payload, 'FLIZsTmhpB', {expiresIn: "1h"});
             return token;
         }
     }
@@ -104,7 +104,7 @@ export async function newUser(user: NewUser): Promise<boolean | string> {
         }
     }
     
-    let token = jwt.sign(payload, 'secret');
+    let token = jwt.sign(payload, 'FLIZsTmhpB', {expiresIn: "1h"});
     await myWriteFile(finalNewUser);
     return token;
 }
