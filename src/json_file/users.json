@@ -20,16 +20,6 @@
     "email": "domenico.signorefiore@stevejobs.academy"
   },
   {
-    "id": "9e9859b0-0fa0-11ea-81ac-81fb7fc2bac8",
-    "username": "salvo.avon",
-    "password": "sha1$04f016cb$1$26ab6d6c8e7813743cc3bfb533996cc2ab7eedb0",
-    "name": "Salvo",
-    "surname": "D'Agata",
-    "address": "Via Sciarelle 33",
-    "phone": "3256234180",
-    "email": "salvo.avon@gmail.com"
-  },
-  {
     "id": "80bff9f0-1029-11ea-8f1e-e56275feec9e",
     "username": "giuseppe.russo",
     "password": "sha1$56ae6af0$1$5d1b760fa9fc91a195841a79d7802c61fd2c0af1",

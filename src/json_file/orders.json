@@ -14,7 +14,7 @@
     ],
     "totalAmount": 30,
     "rating": null,
-    "statusOrder": false
+    "statusOrder": true
   },
   {
     "id": "e29c4424-6983-49aa-9d86-ee027ccea160",
@@ -30,7 +30,7 @@
     ],
     "totalAmount": null,
     "rating": null,
-    "statusOrder": false
+    "statusOrder": true
   },
   {
     "id": "c53ef439-4574-4108-afb2-e34ad155506a",
@@ -63,7 +63,7 @@
     ],
     "totalAmount": null,
     "rating": null,
-    "statusOrder": false
+    "statusOrder": true
   },
   {
     "id": "7bf0b916-c9c3-4a07-8392-5ce3ede39d96",
@@ -271,14 +271,14 @@
   },
   {
     "id": "d615b989-869f-4c30-93ad-0ea996f37939",
-    "userId": "835ff110-0f98-11ea-8890-394c0b160928",
-    "restaurantId": "40cd0686-ce6e-42fa-98ff-371822b639ef",
+    "userId": "6a70be40-2af1-11ea-aa94-7f8cf447a7e5",
+    "restaurantId": "2d4fe58f-ac5c-46a4-bda1-6b914acb2a78",
     "date": "26-11-2019 13:2:52",
     "shippingAddress": "via Matteo Finocchiaro 4",
     "orderItems": [],
     "totalAmount": 0,
     "rating": null,
-    "statusOrder": false
+    "statusOrder": true
   },
   {
     "id": "03a557ed-9437-4e8e-bb46-de9e4d1dae51",
@@ -289,7 +289,7 @@
     "orderItems": [],
     "totalAmount": 0,
     "rating": null,
-    "statusOrder": false
+    "statusOrder": true
   },
   {
     "id": "a4d7654e-f0e0-42b5-9462-beddae6f1f7d",

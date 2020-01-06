@@ -10,7 +10,7 @@ function verifyToken(req: any, res: any, next: any) {
     if(!req.headers.authorization) {
         return res.status(401).send('Unauthorized request');
     }
-    let token = req.headers.authorization.split(' ')[1];
+    let token = req.headers.authorization.split('.')[1];
     if(token === 'null') {
         return res.status(401).send('Unauthorized request');
     }
@@ -22,7 +22,7 @@ function verifyToken(req: any, res: any, next: any) {
     next();
 }
 
-router.post('/create', verifyToken, async (req, res) => {
+router.post('/create', async (req, res) => {
     const result = await order.newOrder(req.body);
     return res.json(result);
 });
@@ -30,11 +30,11 @@ router.put('/:id/acceptOrder', async (req, res) => {
     const result = await res.json(order.changeStatusOrder(req.params.id));
     return res.json(result);
 });
-router.put('/:id/putRating', verifyToken, async (req, res) => {
+router.put('/:id/putRating', async (req, res) => {
     const result = await res.json(order.changeRatingOrder(req.params.id,req.query.rating));
     return res.json(result);
 });
-router.delete('/delete/:id', verifyToken, (req, res) => {
+router.delete('/delete/:id', (req, res) => {
     return res.json(order.deleteOrder(req.params.id));
 });
 router.get('/', (req, res) => {
