@@ -96,12 +96,7 @@ export async function newOrder(order: Order): Promise<Object> {
                 }
             }
             return {response : "Restaurant not found"};            
-<<<<<<< HEAD
-        }
-        // return {response : "User not found"};
-=======
         } 
->>>>>>> 27ad2776731c1fd44d550c3138e109517562503e
     }
     return {response : "User not found"};
 }
