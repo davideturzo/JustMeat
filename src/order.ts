@@ -6,7 +6,7 @@ import {Restaurants} from './restaurant';
 
 export interface OrderList{
     quantity : number;
-    namePlate : string,
+    name : string,
     price : number
 }
 export interface Order{
@@ -67,15 +67,14 @@ export async function newOrder(order: Order): Promise<Object> {
                 if(restaurant.id === order.restaurantId){
                     for(let plates of order.orderItems){
                         for(let item of restaurant.plate){
-                            if(item.name === plates.namePlate){
+                            if(item.name === plates.name){
                                 orderPlate.push({
-                                    quantity : plates.quantity,
-                                    namePlate : plates.namePlate,
-                                    price : item.price
+                                    quantity : 1,
+                                    name : plates.name,
+                                    price : plates.price
                                 });
-                                totalPrice+=(item.price * plates.quantity);
+                                totalPrice+=item.price;
                             }
-                            //  else return {response : "Can't order this plate"}
                         }
                     }
                     completeOrder={
@@ -97,10 +96,14 @@ export async function newOrder(order: Order): Promise<Object> {
                 }
             }
             return {response : "Restaurant not found"};            
+<<<<<<< HEAD
         }
         // return {response : "User not found"};
+=======
+        } 
+>>>>>>> 27ad2776731c1fd44d550c3138e109517562503e
     }
-    return {response : "Nothing work property"};
+    return {response : "User not found"};
 }
 /* export function modifyOrder(ID:string,orderItems:Array<OrderList>): boolean {
     var totalPrice=0;
@@ -280,7 +283,7 @@ export function getOrdersByPlate(plateName: string): Array<Order> | Object {
     var orderByPlate = Array<Order>();
     for(let order in orderList){
         for(let plate in orderList[order].orderItems){
-            if(orderList[order].orderItems[plate].namePlate === plateName ){
+            if(orderList[order].orderItems[plate].name === plateName ){
                 orderByPlate.push(orderList[order]);
             }
         }
