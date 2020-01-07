@@ -24,6 +24,7 @@ function verifyToken(req: any, res: any, next: any) {
 
 router.post('/create', async (req, res) => {
     const result = await order.newOrder(req.body);
+    console.log(req.body);
     return res.json(result);
 });
 router.put('/:id/acceptOrder', async (req, res) => {

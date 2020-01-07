@@ -74,7 +74,8 @@ export async function newOrder(order: Order): Promise<Object> {
                                     price : item.price
                                 });
                                 totalPrice+=(item.price * plates.quantity);
-                            } else return {response : "Can't order this plate"}
+                            }
+                            //  else return {response : "Can't order this plate"}
                         }
                     }
                     completeOrder={
@@ -88,6 +89,7 @@ export async function newOrder(order: Order): Promise<Object> {
                         rating : null,
                         statusOrder : false
                     }
+                    console.log(orderPlate)
                     orderList.push(completeOrder)
                     let finalOrder = JSON.stringify(orderList,null,2);
                     await myWriteFile(jsonStringOrder,finalOrder);
@@ -96,7 +98,7 @@ export async function newOrder(order: Order): Promise<Object> {
             }
             return {response : "Restaurant not found"};            
         }
-        return {response : "User not found"};
+        // return {response : "User not found"};
     }
     return {response : "Nothing work property"};
 }

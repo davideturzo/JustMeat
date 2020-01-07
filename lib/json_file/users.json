@@ -1,7 +1,18 @@
-[{
-    "id": "4e2fd5f0-0e03-11ea-93a5-213c75413eaa",
+[
+  {
+    "id": "835ff110-0f98-11ea-8890-394c0b160928",
+    "username": "giovanni.russo",
+    "password": "sha1$0fd821e6$1$921e6d304ef499ef2f2dc4cf57ba79678dcc4167",
+    "name": "Pippo",
+    "surname": "Manfredi",
+    "address": "Via Nocilla 3",
+    "phone": "3236249490",
+    "email": "manfredi.pippo@hotmail.it"
+  },
+  {
+    "id": "940124d0-0f98-11ea-92be-7fb936b7a9ae",
     "username": "domenico.sf",
-    "password": "sha1$ea41c545$1$47ad1a49872687f1709bfeac4d9b67f07066128b",
+    "password": "sha1$c8f5e92d$1$4305db8d357ce77bd8d6fde3e9a66bac583842c1",
     "name": "Domenico",
     "surname": "Signore Fiore",
     "address": "Via Veronica 33",
@@ -9,13 +20,73 @@
     "email": "domenico.signorefiore@stevejobs.academy"
   },
   {
-    "id": "5be95310-0e03-11ea-a2e3-f56b36458228",
-    "username": "renato.russo",
-    "password": "sha1$2917a136$1$f62bcee9e82d9b098af8a9b783fb0423c975da92",
-    "name": "Renato",
+    "id": "80bff9f0-1029-11ea-8f1e-e56275feec9e",
+    "username": "giuseppe.russo",
+    "password": "sha1$56ae6af0$1$5d1b760fa9fc91a195841a79d7802c61fd2c0af1",
+    "name": "Gianni",
     "surname": "Russo",
-    "address": "Via Veronica 3",
+    "address": "Via Nocilla 13",
+    "phone": "3256234180",
+    "email": "giuseppe.russo@gmail.com"
+  },
+  {
+    "id": "bd808f30-103d-11ea-983c-fdfc973b1bf5",
+    "username": "giuseppe.brischetto",
+    "password": "sha1$a01a86d2$1$c0a543583684429ed3dc0b8f210962ec0b8d6944",
+    "name": "Giuseppe",
+    "surname": "Brischetto",
+    "address": "Via Mascagni 3",
     "phone": "3246239490",
-    "email": "renato.russo@gmail.com"
+    "email": "giuseppe.brischetto@gmail.com"
+  },
+  {
+    "id": "6a70be40-2af1-11ea-aa94-7f8cf447a7e5",
+    "username": "mario.urso",
+    "password": "sha1$352cc08d$1$8c478431fb560ac586a68ea34906bbfe38973e79",
+    "name": "Mario",
+    "surname": "Urso",
+    "address": "Via Pietro Mascagni 5",
+    "phone": "3409814560",
+    "email": "mario.urso@gmail.com"
+  },
+  {
+    "id": "accdb5f0-2b1d-11ea-99d8-2352d078e76a",
+    "username": "lucrezia.ragusa",
+    "password": "sha1$3b1a4a83$1$df24124b601d5605a928a3dcdffaf07c083d0fca",
+    "name": "Lucrezia",
+    "surname": "Ragusa",
+    "address": "Via Pedara 6",
+    "phone": "3297087442",
+    "email": "lucreziaragusa@gmail.com"
+  },
+  {
+    "id": "cde526c0-2b26-11ea-af3d-cd5416bc09a8",
+    "username": "alfio.scuderi",
+    "password": "sha1$bc103b36$1$a9a6b2065cbcf1e0689f93e465ac554e4e962003",
+    "name": "Alfio",
+    "surname": "Scuderi",
+    "address": "Via Luigi Sturzo 18",
+    "phone": "3409429197",
+    "email": "alfio.scuderi@gmail.com"
+  },
+  {
+    "id": "24cc6fe0-2b2a-11ea-b58e-05ce98a2d0fa",
+    "username": "antonio.corsaro",
+    "password": "sha1$919bb908$1$481b96329fef985a0af0478ab4addc5b1d5cce15",
+    "name": "Antonio",
+    "surname": "Corsaro",
+    "address": "Via della Concordia 14d",
+    "phone": "3281098174",
+    "email": "antonio.corsaro@gmail.com"
+  },
+  {
+    "id": "b5d60a30-2be5-11ea-a266-1b7414b919cd",
+    "username": "admin",
+    "password": "sha1$dbe034de$1$c2fc0132c184e39db5b152556ddc575dadf0a29f",
+    "name": "Pierantonio",
+    "surname": "Petralia",
+    "address": "No address",
+    "phone": "3890439101",
+    "email": "pier.petralia@gmail.com"
   }
 ]
