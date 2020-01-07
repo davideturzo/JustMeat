@@ -11,6 +11,7 @@ function verifyToken(req: any, res: any, next: any) {
         return res.status(401).send('Unauthorized request');
     }
     let token = req.headers.authorization.split('.')[1];
+    console.log(token);
     if(token === 'null') {
         return res.status(401).send('Unauthorized request');
     }
@@ -24,7 +25,6 @@ function verifyToken(req: any, res: any, next: any) {
 
 router.post('/create', async (req, res) => {
     const result = await order.newOrder(req.body);
-    console.log(req.body);
     return res.json(result);
 });
 router.put('/:id/acceptOrder', async (req, res) => {

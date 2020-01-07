@@ -88,7 +88,6 @@ export async function newOrder(order: Order): Promise<Object> {
                         rating : null,
                         statusOrder : false
                     }
-                    console.log(orderPlate)
                     orderList.push(completeOrder)
                     let finalOrder = JSON.stringify(orderList,null,2);
                     await myWriteFile(jsonStringOrder,finalOrder);
