@@ -58,5 +58,36 @@
     ],
     "rating": null,
     "typology": "RISTORANTE"
+  },
+  {
+    "id": "2d4fe58f-ac5c-46a4-bda1-6b914acb2a78",
+    "name": "Sette Più",
+    "address": "Via Sant'Euplio, 78",
+    "city": "Catania",
+    "email": "settepiu@gmail.com",
+    "plate": [
+      {
+        "name": "Margherita",
+        "price": 7
+      },
+      {
+        "name": "Capricciosa",
+        "price": 10
+      },
+      {
+        "name": "Parmigiana",
+        "price": 10
+      },
+      {
+        "name": "Sette Più",
+        "price": 15
+      },
+      {
+        "name": "",
+        "price": null
+      }
+    ],
+    "rating": null,
+    "typology": "Pizzeria"
   }
 ]

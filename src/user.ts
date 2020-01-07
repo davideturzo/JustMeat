@@ -63,7 +63,7 @@ export async function login(email: string, password: string): Promise<string|boo
                     isAdmin: false 
                 }
             }
-            let token = jwt.sign(payload, 'secret');
+            let token = jwt.sign(payload, 'FLIZsTmhpB', {expiresIn: "1h"});
             return token;
         }
     }
@@ -104,7 +104,7 @@ export async function newUser(user: NewUser): Promise<boolean | string> {
         }
     }
     
-    let token = jwt.sign(payload, 'secret');
+    let token = jwt.sign(payload, 'FLIZsTmhpB', {expiresIn: "1h"});
     await myWriteFile(finalNewUser);
     return token;
 }
@@ -113,10 +113,20 @@ export async function usersList(): Promise<Array<User>> {
     users = JSON.parse(await myReadfile());
     return users;
 }
-export async function userById(username: string): Promise<User | boolean> {
+export async function userByUsername(username: string): Promise<User | boolean> {
     users = JSON.parse(await myReadfile());
     for(let element of users){
         if(username == element.username){
+            return element;
+        }
+    }
+    return true;
+}
+
+export async function userById(id: string): Promise<User | boolean> {
+    users = JSON.parse(await myReadfile());
+    for(let element of users){
+        if(id == element.id){
             return element;
         }
     }

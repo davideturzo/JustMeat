@@ -11,7 +11,10 @@ router.get('/', async (req: Request, res: Response, next: NextFunction) => {
         return res.status(400).send("Username must be valid");
     }
     if(req.query.username){
-       return res.json(await user.userById(req.query.username));
+       return res.json(await user.userByUsername(req.query.username));
+    }
+    if(req.query.id){
+        return res.json(await user.userById(req.query.id));
     } 
     res.json(await user.usersList());
     next();
