@@ -66,18 +66,14 @@ export async function newOrder(order: Order): Promise<Object> {
             for(let restaurant of restaurantList ){
                 if(restaurant.id === order.restaurantId){
                     for(let plates of order.orderItems){
-                        console.log(plates);
-                        console.log(plates.name);
                         for(let item of restaurant.plate){
-                            console.log(`Piatto Ristorante : ${item.name} - Piatto Ordine : ${plates.name}`);
                             if(item.name === plates.name){
-                                console.log("im here");
                                 orderPlate.push({
                                     quantity : 1,
                                     name : plates.name,
                                     price : plates.price
                                 });
-                                totalPrice+=(item.price * plates.quantity);
+                                totalPrice+=item.price;
                             }
                         }
                     }
