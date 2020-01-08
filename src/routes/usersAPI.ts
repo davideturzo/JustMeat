@@ -7,6 +7,7 @@ router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({extended: true}));
 
 router.get('/', async (req: Request, res: Response, next: NextFunction) => {
+    // express validator
     if(!isNaN(req.query.username)){
         return res.status(400).send("Username must be valid");
     }
@@ -14,10 +15,10 @@ router.get('/', async (req: Request, res: Response, next: NextFunction) => {
        return res.json(await user.userByUsername(req.query.username));
     }
     if(req.query.id){
+        // magari chiamata get singolo utente
         return res.json(await user.userById(req.query.id));
     } 
     res.json(await user.usersList());
-    next();
 });
 
 router.post('/login', async (req: Request, res: Response, next: NextFunction) => {
@@ -32,6 +33,7 @@ router.post('/login', async (req: Request, res: Response, next: NextFunction) =>
     next();
 });
 
+// ANTIREST
 router.post('/create', async (req: Request, res: Response, next: NextFunction) => {
     if(!isNaN(req.body.username && req.body.name && req.body.surname)){
        return res.status(400).send("username, name, surname must be valid");
@@ -45,6 +47,7 @@ router.post('/create', async (req: Request, res: Response, next: NextFunction) =
 });
 
 router.put('/:username', async (req: Request, res: Response, next: NextFunction) => {
+    // VALIDAZIONE BODY 
     if(!req.params.username){
         return res.status(400).send("Invalid username");
     }

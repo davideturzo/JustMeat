@@ -89,5 +89,20 @@
     ],
     "rating": null,
     "typology": "Pizzeria"
+  },
+  {
+    "id": "41f5fc9e-ff68-437f-ba86-fc736d795f24",
+    "name": "7+",
+    "address": "Via Del Bosco 8",
+    "city": "Catania",
+    "email": "carlo@7piu.com",
+    "plate": [
+      {
+        "name": "1",
+        "price": "1"
+      }
+    ],
+    "rating": null,
+    "typology": "ciao"
   }
 ]

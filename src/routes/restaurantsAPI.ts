@@ -6,6 +6,7 @@ router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({extended: true}));
 
 router.get('/', (req: Request, res: Response, next: NextFunction) => {
+    // qui con name
     if(req.query.id){
         return res.json(rest.restaurantById(req.query.id));
     }
@@ -13,9 +14,10 @@ router.get('/', (req: Request, res: Response, next: NextFunction) => {
         return res.json(rest.restaurantByCity(req.query.city));
     }
     res.json(rest.getRestaurantList());
-    next();
 });
 
+// non necessario create
+// validazione del body con express validator
 router.post('/create', async (req: Request, res: Response, next: NextFunction) => {
     if(!isNaN(req.body.name && req.body.address && req.body.email && req.body.plate && req.body.typology)){
         return res.status(400).send("name, address, email must be valid");
@@ -24,11 +26,13 @@ router.post('/create', async (req: Request, res: Response, next: NextFunction) =
     res.json(response);
 });
 
+// id
 router.get('/:name', (req: Request, res: Response, next: NextFunction) => {
     res.json(rest.restaurantByName(req.params.name));
     next();
 });
 
+// antirest
 router.put('/update/:id', async (req: Request, res: Response, next: NextFunction) => {
     if(!req.params.id){
         return res.status(400).send('ID must be invalid');
@@ -39,6 +43,7 @@ router.put('/update/:id', async (req: Request, res: Response, next: NextFunction
     }
     next();
 });
+// ANTIREST
 router.delete('/delete/:id', (req: Request, res: Response, next: NextFunction) => {
     if(!req.params.id){
         return res.status(400).send('Invalid id');

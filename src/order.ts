@@ -61,6 +61,7 @@ export async function newOrder(order: Order): Promise<Object> {
     var totalPrice=0;
     var orderPlate =Array<OrderList>();
     var completeOrder =Object();
+    // bruttissima 
     for(let user of userList){
         if(user.id === order.userId){
             for(let restaurant of restaurantList ){
@@ -207,7 +208,6 @@ export function getOrdersByRestaurantId(id: string): Array<Order> | Object {
     return {response : "This restaurant has not received any order"};
 };
 export function getOrdersByBothId(userID: string,restaurantID: string): Array<Order> | Object {
-    let counter = 0;
     var bothOrders = Array<Order>();
     for(let order of orderList){
         if(order.userId === userID && order.restaurantId === restaurantID){

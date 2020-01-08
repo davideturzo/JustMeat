@@ -1,5 +1,5 @@
 import express, {Request, Response, NextFunction, Router} from 'express';
-import * as order from '../order';
+import * as order from '../order'; // va messo maiusolo order
 import bodyParser from 'body-parser';
 import jwt from 'jsonwebtoken';
 const router: Router = express.Router();
@@ -15,7 +15,7 @@ function verifyToken(req: any, res: any, next: any) {
     if(token === 'null') {
         return res.status(401).send('Unauthorized request');
     }
-    let payload = jwt.verify(token, 'FLIZsTmhpB') as any;
+    let payload = jwt.verify(token, ' ') as any;
     if(!payload) {
         return res.status(401).send('Unauthorized request');
     }
@@ -23,11 +23,16 @@ function verifyToken(req: any, res: any, next: any) {
     next();
 }
 
+// create non necessario
 router.post('/create', async (req, res) => {
+    // middleware di auth
+    // validazione del body
+    // userId non va nel body
     const result = await order.newOrder(req.body);
     return res.json(result);
 });
 router.put('/:id/acceptOrder', async (req, res) => {
+    // validazione id mnogo
     const result = await res.json(order.changeStatusOrder(req.params.id));
     return res.json(result);
 });
@@ -41,22 +46,29 @@ router.delete('/delete/:id', (req, res) => {
 router.get('/', (req, res) => {
     if(req.query.userId && req.query.restaurantId){
         return res.json(order.getOrdersByBothId(req.query.userId,req.query.restaurantId));
-    }else if(req.query.namePlate){
+    } else if (req.query.namePlate){
         return res.json(order.getOrdersByPlate(req.query.namePlate));
-    }else if(req.query.userId){
+    } else if (req.query.userId){
         return res.json(order.getOrdersById(req.query.userId));
-    }else
-    return res.json(order.getOrdersList());
+    } else
+    return res .json(order.getOrdersList());
 });
+
+// non rest
 router.get('/:userId/expensiveOrder', (req, res) => {
     return res.json(order.getExpensiveOrder(req.params.userId));
 });
+// non rest
 router.get('/:userId/cheaperOrder', (req, res) => {
     return res.json(order.getCheaperOrder(req.params.userId));
 });
+
+// non è rest
 router.get('/user/:id', (req, res) => {
     return res.json(order.getOrdersByUserId(req.params.id));
 });
+
+// non è rest
 router.get('/restaurant/:id', (req, res) => {
     return res.json(order.getOrdersByRestaurantId(req.params.id));
 });
