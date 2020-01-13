@@ -1,5 +1,5 @@
 import express, {Request, Response, NextFunction, Router} from 'express';
-import * as Order from '../order'; // va messo maiusolo order
+import * as Order from '../order';
 import bodyParser from 'body-parser';
 import jwt from 'jsonwebtoken';
 const router: Router = express.Router();
@@ -23,8 +23,7 @@ function verifyToken(req: any, res: any, next: any) {
     next();
 }
 
-// create non necessario
-router.post('/create', async (req, res) => {
+router.post('', async (req, res) => {
     // middleware di auth
     // validazione del body
     // userId non va nel body
@@ -52,25 +51,6 @@ router.get('/', (req, res) => {
         return res.json(Order.getOrdersById(req.query.userId));
     } else
     return res .json(Order.getOrdersList());
-});
-
-// non rest
-router.get('/:userId/expensiveOrder', (req, res) => {
-    return res.json(Order.getExpensiveOrder(req.params.userId));
-});
-// non rest
-router.get('/:userId/cheaperOrder', (req, res) => {
-    return res.json(Order.getCheaperOrder(req.params.userId));
-});
-
-// non è rest
-router.get('/user/:id', (req, res) => {
-    return res.json(Order.getOrdersByUserId(req.params.id));
-});
-
-// non è rest
-router.get('/restaurant/:id', (req, res) => {
-    return res.json(Order.getOrdersByRestaurantId(req.params.id));
 });
 
 export = router;

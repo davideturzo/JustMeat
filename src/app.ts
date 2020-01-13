@@ -1,14 +1,14 @@
 import express, { Application } from 'express';
-import users from './routes/usersAPI';
-import restaurants from './routes/restaurantsAPI';
-import orders from './routes/ordersAPI';
+import Users from './routes/users';
+import Restaurants from './routes/restaurants';
+import Orders from './routes/orders';
 import cors from 'cors';
 const app: Application = express();
 
 app.use(cors());
-app.use('/users', users);
-app.use('/restaurants', restaurants);
-app.use('/orders', orders);
+app.use('/users', Users);
+app.use('/restaurants', Restaurants);
+app.use('/orders', Orders);
 
 app.listen(3006, "Localhost", (err) => {
     if(err) {

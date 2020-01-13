@@ -3,7 +3,6 @@ import fs from 'fs';
 import { promisify } from 'util';
 import {User} from './user';
 import {Restaurants} from './restaurant';
-import { objectExpression } from '@babel/types';
 
 export interface OrderList{
     quantity : number;
