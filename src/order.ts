@@ -3,6 +3,7 @@ import fs from 'fs';
 import { promisify } from 'util';
 import {User} from './user';
 import {Restaurants} from './restaurant';
+import { objectExpression } from '@babel/types';
 
 export interface OrderList{
     quantity : number;
@@ -17,7 +18,7 @@ export interface Order{
     shippingAddress : string,
     orderItems: Array<OrderList>,
     totalAmount: number,
-    rating : number,
+    rating : number | null,
     statusOrder : boolean
 };
 
@@ -58,67 +59,40 @@ export async function newOrder(order: Order): Promise<Object> {
     var date = timestampNow.getDate() + "-" + (timestampNow.getMonth()+1) + "-" + timestampNow.getFullYear();
     var time = timestampNow.getHours() + ":" + timestampNow.getMinutes() + ":" + timestampNow.getSeconds();
     var dateOrder = date + " " + time;
-    var totalPrice=0;
-    var orderPlate =Array<OrderList>();
-    var completeOrder =Object();
-    // bruttissima 
-    for(let user of userList){
-        if(user.id === order.userId){
-            for(let restaurant of restaurantList ){
+    var totalPrice = 0;
+    var orderPlate = Array<OrderList>();
+    var completeOrder : Order = Object();
+    if(userList.find(user => user.id === order.userId)){
+        if(orderPlate.push(...order.orderItems.filter(item => {
+            return restaurantList.find(restaurant => {
                 if(restaurant.id === order.restaurantId){
-                    for(let plates of order.orderItems){
-                        for(let item of restaurant.plate){
-                            if(item.name === plates.name){
-                                orderPlate.push({
-                                    quantity : 1,
-                                    name : plates.name,
-                                    price : plates.price
-                                });
-                                totalPrice+=item.price;
-                            }
-                        }
-                    }
-                    completeOrder={
-                        id : uuidv1(),
-                        userId : order.userId,
-                        restaurantId : order.restaurantId,
-                        date : dateOrder,
-                        shippingAddress : order.shippingAddress,
-                        orderItems : orderPlate,
-                        totalAmount : totalPrice,
-                        rating : null,
-                        statusOrder : false
-                    }
-                    orderList.push(completeOrder)
-                    let finalOrder = JSON.stringify(orderList,null,2);
-                    await myWriteFile(jsonStringOrder,finalOrder);
-                    return completeOrder;
+                    return restaurant.plate.find(plate => {
+                        totalPrice+=plate.price;
+                        item.price = plate.price;
+                        return plate.name === item.name 
+                    })
                 }
+            })
+        }))){
+            completeOrder={
+                id : uuidv1(),
+                userId : order.userId,
+                restaurantId : order.restaurantId,
+                date : dateOrder,
+                shippingAddress : order.shippingAddress,
+                orderItems : orderPlate,
+                totalAmount : totalPrice,
+                rating : null,
+                statusOrder : false
             }
-            return {response : "Restaurant not found"};            
-        } 
-    }
-    return {response : "User not found"};
+            orderList.push(completeOrder)
+            let finalOrder = JSON.stringify(orderList,null,2);
+            await myWriteFile(jsonStringOrder,finalOrder);
+            return completeOrder;
+        } else return {response : "Restaurant not found"};
+    } else return {response : "User not found"}
 }
-/* export function modifyOrder(ID:string,orderItems:Array<OrderList>): boolean {
-    var totalPrice=0;
-    var orderItems =Array<OrderList>();
-        if(orderList.includes(ID)){
-            for (let item of orderItems) {
-                if(restaurantList[ID].includes(item.namePlate)){
-                    orderItems.push(item);
-                    totalPrice+=item.price;
-                }
-            }
-        for(var item of orderList) {
-            if(item.ID === ID){
-                item.totalAmount = totalPrice;
-                item.orderItems = orderItems;
-            }
-        }
-        return true;
-    }else return false;
-} */
+
 export async function changeStatusOrder(ID:string): Promise<Object | boolean> {
     let counter =0;
     for(let order of orderList){
@@ -141,7 +115,7 @@ export async function changeRatingOrder(ID:string,rating:number): Promise<Object
     for(let order of orderList){
         if(order.id ===ID){
             if(order.rating == null){
-                if(order.rating >= 0 && order.rating <=5){
+                if(order.rating === null){
                     order.rating = rating;
                 orderList.splice(counter,1,order);
                 const result = JSON.stringify(orderList,null,2);
