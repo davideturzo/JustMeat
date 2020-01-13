@@ -3,7 +3,10 @@ import Users from './routes/users';
 import Restaurants from './routes/restaurants';
 import Orders from './routes/orders';
 import cors from 'cors';
+
 const app: Application = express();
+
+
 
 app.use(cors());
 app.use('/users', Users);

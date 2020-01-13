@@ -1,4 +1,5 @@
 import express, {Request, Response, NextFunction, Router} from 'express';
+import { newOrderRules } from '../validator' ;
 import * as Order from '../order';
 import bodyParser from 'body-parser';
 import jwt from 'jsonwebtoken';
@@ -23,7 +24,7 @@ function verifyToken(req: any, res: any, next: any) {
     next();
 }
 
-router.post('', async (req, res) => {
+router.post('',newOrderRules(),async (req : Request, res : Response) => {
     // middleware di auth
     // validazione del body
     // userId non va nel body
